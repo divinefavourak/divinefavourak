@@ -4,7 +4,7 @@
 > — Me, when Figma isn’t lagging
 
 ### 🚀 About Me
-I'm Divine — a 100-level Computer Science student at the University of Lagos. I breathe code, vibe with clean UI, and find joy in making things work *and* look good. I keep it real — no fluff, no filters, just growth and grind.
+I'm Divine — a 200-level Computer Science student at the University of Lagos. I breathe code, vibe with clean UI, and find joy in making things work *and* look good. I keep it real — no fluff, no filters, just growth and grind.
 
 ### 💻 What I Do
 - 🌐 Web Design & UI/UX Exploration  
