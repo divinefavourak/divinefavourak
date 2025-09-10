@@ -6,7 +6,7 @@ import DarkModeToggle from "../components/DarkModeToggle";
 function Projects() {
   return (
     <div className="container">
-      <Navbar />
+  
       <ProjectGrid />
       <DarkModeToggle />
 

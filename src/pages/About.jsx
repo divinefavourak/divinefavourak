@@ -5,7 +5,7 @@ import DarkModeToggle from "../components/DarkModeToggle";
 function About() {
   return (
     <div className="container">
-      <Navbar />
+  
 
       <main className="about">
         <h1 className="page-title">About <span>Me</span></h1>
