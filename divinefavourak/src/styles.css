@@ -536,6 +536,22 @@ body {
     margin-bottom: 1.5rem;
     font-size: 0.9rem;
 }
+.project-preview {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+.project-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  transform: scale(1);
+  transform-origin: top left;
+}
 
 .view-btn {
     padding: 0.6rem 1.5rem;
