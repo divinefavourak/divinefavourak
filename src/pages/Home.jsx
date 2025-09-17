@@ -1,4 +1,5 @@
 import React from "react";
+import DarkModeToggle from "../components/DarkModeToggle";
 
 function Home() {
   return (
@@ -7,6 +8,7 @@ function Home() {
         <h1 className="animated-text">
           Hi, I'm <span>Divine</span>
         </h1>
+        <DarkModeToggle />
         <h2 className="animated-subtext">Frontend Developer & UI Designer</h2>
         <p className="animated-paragraph">
           I create beautiful, responsive websites with engaging user experiences.
@@ -25,6 +27,9 @@ function Home() {
           <div className="color-spot spot-3"></div>
         </div>
       </div>
+     <div className="shape shape-1"></div>
+      <div className="shape shape-2"></div>
+      <div className="shape shape-3"></div>
     </main>
   );
 }
