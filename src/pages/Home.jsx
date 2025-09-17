@@ -19,7 +19,7 @@ function Home() {
 
       <div className="landing-image">
         <div className="image-wrapper">
-          <img src="/IMG-20250102-WA0000.jpg" alt="Profile" />
+          <img src="/1000934452.jpg" alt="Profile" />
           <div className="color-spot spot-1"></div>
           <div className="color-spot spot-2"></div>
           <div className="color-spot spot-3"></div>
