@@ -6,7 +6,7 @@ function Home() {
     <main className="landing">
       <div className="landing-content">
         <h1 className="animated-text">
-          Hi, I'm <span>Divine-favour Akanbi</span>
+          Hi, I'm <span>Akanbi Divine-favour</span>
         </h1>
         <DarkModeToggle />
         <h2 className="animated-subtext">Frontend Developer & UI Designer</h2>
