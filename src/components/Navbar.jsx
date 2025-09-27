@@ -8,7 +8,7 @@ function Navbar() {
     <nav className="nav">
       <div className="nav-logo">
         <Link to="/" className="logo">
-          Port<span>folio</span>
+         My Port<span>folio</span>
         </Link>
       </div>
 

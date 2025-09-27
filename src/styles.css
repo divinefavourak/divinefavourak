@@ -260,7 +260,7 @@ body {
 .page-title {
     font-size: 3rem;
     font-weight: 700;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem; /* Reduced from 3rem */
     text-align: center;
     position: relative;
     display: inline-block;
@@ -272,10 +272,54 @@ body {
     color: var(--primary-color);
 }
 
+.page-subtitle {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 1.5rem; /* Reduced from 3rem */
+    color: #666;
+}
+
 .about-content {
     display: flex;
     gap: 3rem;
     align-items: center;
+}
+
+.about-content-flex {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 2rem auto;
+  padding: 2rem 1.5rem;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(124,77,255,0.07);
+}
+
+.about-text-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.about-text-block h3 {
+  margin-top: 1.2rem;
+  font-size: 1.15rem;
+  color: #7c4dff;
+}
+
+.about-text-block p {
+  font-size: 1.05rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.about-cta {
+  margin-top: 1.5rem;
+  text-align: left;
 }
 
 .about-image {
