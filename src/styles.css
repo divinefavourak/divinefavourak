@@ -52,10 +52,13 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 0;
+  padding: 1.5rem 2rem;
   border-bottom: 4px double var(--accent-gray);
   margin-bottom: 2rem;
   background: #000;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .logo {
@@ -70,7 +73,14 @@ a:hover {
 
 .nav-links { display: flex; gap: 2rem; }
 .nav-links a { font-weight: bold; text-transform: uppercase; border: none; }
-.nav-toggle { display: none; font-size: 1.5rem; cursor: pointer; }
+
+/* Hide Toggle and Close buttons on Desktop */
+.nav-toggle, .nav-close { 
+  display: none; 
+  font-size: 1.5rem; 
+  cursor: pointer; 
+  color: var(--primary-color);
+}
 
 /* --- Terminal Window Container --- */
 .terminal-window {
@@ -188,6 +198,28 @@ a:hover {
   color: var(--primary-color);
 }
 
+/* --- About Page Layout --- */
+.specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.spec-box {
+  border: 1px dashed var(--dim-color);
+  padding: 1.5rem;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--accent-gray);
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+/* -
 /* --- Projects & Contact Layouts --- */
 .project-grid {
   display: grid;
@@ -221,6 +253,12 @@ a:hover {
   background: #000;
 }
 
+.contact-details {
+  margin-top: 2rem;
+  border-top: 1px dashed var(--dim-color);
+  padding-top: 2rem;
+}
+
 /* --- Responsive Design --- */
 @media (max-width: 900px) {
   .hero-section {
@@ -230,14 +268,137 @@ a:hover {
   .hero-image {
     width: 280px;
     height: 280px;
-    border-radius: 50%; /* Optional: circular on mobile for profile feel */
+    border-radius: 50%; 
   }
   .typewriter-text { font-size: 2rem; }
   .btn-group { justify-content: center; }
 }
 
 @media (max-width: 768px) {
-  .nav-links { display: none; } /* Hide menu on mobile for simplicity */
+  .specs-grid { grid-template-columns: 1fr; }
+  .nav { padding: 1rem; }
+  
+  /* Show hamburger menu icon */
   .nav-toggle { display: block; }
-  .container { padding: 0 1rem; }
+
+  /* Mobile Menu Styles */
+  .nav-links {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #000;
+    border-bottom: 2px solid var(--primary-color);
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    gap: 1.5rem;
+    z-index: 999;
+  }
+
+  /* Show menu when 'active' class is added by React */
+  .nav-links.active {
+    display: flex;
+  }
+
+  /* Show Close button inside mobile menu */
+  .nav-close {
+    display: block;
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+  }
+}
+
+
+/* --- Projects & Contact Layouts --- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  border: 1px solid var(--accent-gray);
+  padding: 1.5rem;
+  transition: transform 0.2s;
+}
+
+.project-card:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-5px);
+}
+
+.form-group { margin-bottom: 1.5rem; }
+.form-control {
+  width: 100%;
+  background: #111;
+  border: 1px solid var(--dim-color);
+  color: var(--primary-color);
+  padding: 1rem;
+  font-family: var(--font-stack);
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background: #000;
+}
+
+.contact-details {
+  margin-top: 2rem;
+  border-top: 1px dashed var(--dim-color);
+  padding-top: 2rem;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 900px) {
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-image {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%; 
+  }
+  .typewriter-text { font-size: 2rem; }
+  .btn-group { justify-content: center; }
+}
+
+@media (max-width: 768px) {
+  .specs-grid { grid-template-columns: 1fr; }
+  .nav { padding: 1rem; }
+  
+  /* Show hamburger menu icon */
+  .nav-toggle { display: block; }
+
+  /* Mobile Menu Styles */
+  .nav-links {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #000;
+    border-bottom: 2px solid var(--primary-color);
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    gap: 1.5rem;
+    z-index: 999;
+  }
+
+  /* Show menu when 'active' class is added by React */
+  .nav-links.active {
+    display: flex;
+  }
+
+  /* Show Close button inside mobile menu */
+  .nav-close {
+    display: block;
+    position: absolute;
+    top: 1rem;
+    right: 2rem;
+  }
 }
