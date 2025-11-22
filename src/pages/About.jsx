@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import "../styles/About.css";
+import "../styles/about.css";
 import DarkModeToggle from "../components/DarkModeToggle";
 
 function About() {
