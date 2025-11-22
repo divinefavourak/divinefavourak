@@ -20,7 +20,6 @@ body {
   font-family: var(--font-stack);
   overflow-x: hidden;
   line-height: 1.6;
-  /* Subtle Scanline Texture */
   background-image: linear-gradient(
     rgba(0, 0, 0, 0.1) 50%, 
     rgba(0, 0, 0, 0.2) 50%
@@ -52,13 +51,10 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 0;
   border-bottom: 4px double var(--accent-gray);
   margin-bottom: 2rem;
   background: #000;
-  position: sticky;
-  top: 0;
-  z-index: 100;
 }
 
 .logo {
@@ -74,7 +70,7 @@ a:hover {
 .nav-links { display: flex; gap: 2rem; }
 .nav-links a { font-weight: bold; text-transform: uppercase; border: none; }
 
-/* Hide Toggle and Close buttons on Desktop */
+/* Mobile Toggle */
 .nav-toggle, .nav-close { 
   display: none; 
   font-size: 1.5rem; 
@@ -82,7 +78,7 @@ a:hover {
   color: var(--primary-color);
 }
 
-/* --- Terminal Window Container --- */
+/* --- Terminal Window --- */
 .terminal-window {
   border: 2px solid var(--accent-gray);
   padding: 2rem;
@@ -104,7 +100,37 @@ a:hover {
   letter-spacing: 1px;
 }
 
-/* --- Hero Section (Home) --- */
+/* --- Buttons (FIXED) --- */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid var(--primary-color);
+  background: #000;
+  color: var(--primary-color);
+  font-family: var(--font-stack);
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+  margin: 0.5rem; /* Balanced spacing */
+  max-width: 100%; /* Prevent overflow */
+  white-space: normal; /* Allow text to wrap if needed */
+}
+
+.btn:hover {
+  background: var(--primary-color);
+  color: #000;
+  box-shadow: 4px 4px 0 var(--dim-color);
+}
+
+.btn-group { 
+  display: flex; 
+  gap: 1rem; 
+  flex-wrap: wrap; 
+}
+
+/* --- Layouts --- */
 .hero-section {
   display: flex;
   align-items: center;
@@ -112,22 +138,13 @@ a:hover {
   margin-top: 1rem;
 }
 
-.hero-image-container {
-  flex-shrink: 0;
-}
-
 .hero-image {
   width: 320px;
   height: 380px;
   object-fit: cover;
-  /* Bold B&W Look */
   filter: grayscale(100%) contrast(1.1);
   border: 4px solid var(--primary-color);
   display: block;
-}
-
-.hero-content {
-  flex: 1;
 }
 
 .typewriter-text {
@@ -135,8 +152,6 @@ a:hover {
   line-height: 1.1;
   font-weight: bold;
   margin-bottom: 1.5rem;
-  min-height: 3em;
-  word-wrap: break-word;
 }
 
 .cursor {
@@ -145,60 +160,10 @@ a:hover {
   height: 0.8em;
   background-color: var(--primary-color);
   animation: blink 1s infinite;
-  vertical-align: baseline;
-  margin-left: 5px;
 }
 
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-.subtitle {
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  border-bottom: 1px solid var(--accent-gray);
-  display: inline-block;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-  color: var(--dim-color);
-}
-
-.bio-text {
-  color: #ccc;
-  margin-bottom: 2rem;
-  font-size: 1rem;
-  max-width: 600px;
-}
-
-/* Buttons */
-.btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
-
-.btn {
-  background: var(--primary-color);
-  color: var(--bg-color);
-  padding: 0.8rem 2rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  border: 2px solid var(--primary-color);
-  cursor: pointer;
-}
-
-.btn:hover {
-  background: transparent;
-  color: var(--primary-color);
-  box-shadow: 4px 4px 0 var(--dim-color);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--primary-color);
-}
-
-.btn-secondary:hover {
-  background: var(--accent-gray);
-  color: var(--primary-color);
-}
-
-/* --- About Page Layout --- */
 .specs-grid {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -219,71 +184,30 @@ a:hover {
   font-size: 0.9rem;
 }
 
-/* -
-/* --- Projects & Contact Layouts --- */
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-}
-
-.project-card {
-  border: 1px solid var(--accent-gray);
-  padding: 1.5rem;
-  transition: transform 0.2s;
-}
-
-.project-card:hover {
-  border-color: var(--primary-color);
-  transform: translateY(-5px);
-}
-
-.form-group { margin-bottom: 1.5rem; }
-.form-control {
-  width: 100%;
-  background: #111;
-  border: 1px solid var(--dim-color);
-  color: var(--primary-color);
-  padding: 1rem;
-  font-family: var(--font-stack);
-}
-.form-control:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  background: #000;
-}
-
-.contact-details {
-  margin-top: 2rem;
-  border-top: 1px dashed var(--dim-color);
-  padding-top: 2rem;
-}
-
 /* --- Responsive Design --- */
 @media (max-width: 900px) {
-  .hero-section {
-    flex-direction: column;
-    text-align: center;
-  }
-  .hero-image {
-    width: 280px;
-    height: 280px;
-    border-radius: 50%; 
-  }
+  .hero-section { flex-direction: column; text-align: center; }
+  .hero-image { width: 280px; height: 280px; border-radius: 50%; margin: 0 auto; }
   .typewriter-text { font-size: 2rem; }
   .btn-group { justify-content: center; }
 }
 
 @media (max-width: 768px) {
+  /* Mobile Button Fixes */
+  .btn {
+    display: block;
+    width: 100%;
+    margin: 1rem 0;
+  }
+  
   .specs-grid { grid-template-columns: 1fr; }
   .nav { padding: 1rem; }
   
-  /* Show hamburger menu icon */
   .nav-toggle { display: block; }
 
-  /* Mobile Menu Styles */
+  /* Mobile Menu */
   .nav-links {
-    display: none; /* Hidden by default */
+    display: none; 
     position: absolute;
     top: 100%;
     left: 0;
@@ -297,108 +221,6 @@ a:hover {
     z-index: 999;
   }
 
-  /* Show menu when 'active' class is added by React */
-  .nav-links.active {
-    display: flex;
-  }
-
-  /* Show Close button inside mobile menu */
-  .nav-close {
-    display: block;
-    position: absolute;
-    top: 1rem;
-    right: 2rem;
-  }
-}
-
-
-/* --- Projects & Contact Layouts --- */
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-}
-
-.project-card {
-  border: 1px solid var(--accent-gray);
-  padding: 1.5rem;
-  transition: transform 0.2s;
-}
-
-.project-card:hover {
-  border-color: var(--primary-color);
-  transform: translateY(-5px);
-}
-
-.form-group { margin-bottom: 1.5rem; }
-.form-control {
-  width: 100%;
-  background: #111;
-  border: 1px solid var(--dim-color);
-  color: var(--primary-color);
-  padding: 1rem;
-  font-family: var(--font-stack);
-}
-.form-control:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  background: #000;
-}
-
-.contact-details {
-  margin-top: 2rem;
-  border-top: 1px dashed var(--dim-color);
-  padding-top: 2rem;
-}
-
-/* --- Responsive Design --- */
-@media (max-width: 900px) {
-  .hero-section {
-    flex-direction: column;
-    text-align: center;
-  }
-  .hero-image {
-    width: 280px;
-    height: 280px;
-    border-radius: 50%; 
-  }
-  .typewriter-text { font-size: 2rem; }
-  .btn-group { justify-content: center; }
-}
-
-@media (max-width: 768px) {
-  .specs-grid { grid-template-columns: 1fr; }
-  .nav { padding: 1rem; }
-  
-  /* Show hamburger menu icon */
-  .nav-toggle { display: block; }
-
-  /* Mobile Menu Styles */
-  .nav-links {
-    display: none; /* Hidden by default */
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: #000;
-    border-bottom: 2px solid var(--primary-color);
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    gap: 1.5rem;
-    z-index: 999;
-  }
-
-  /* Show menu when 'active' class is added by React */
-  .nav-links.active {
-    display: flex;
-  }
-
-  /* Show Close button inside mobile menu */
-  .nav-close {
-    display: block;
-    position: absolute;
-    top: 1rem;
-    right: 2rem;
-  }
+  .nav-links.active { display: flex; }
+  .nav-close { display: block; position: absolute; top: 1rem; right: 2rem; }
 }
