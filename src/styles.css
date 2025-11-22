@@ -819,7 +819,7 @@ body {
     }
 }
 
-/* Loader: CSS-only fade out after 2s */
+/* Loader: CSS-only fade out after triggered */
 .loader {
   position: fixed;
   top: 0;
@@ -832,8 +832,13 @@ body {
   align-items: center;
   z-index: 9999;
   transition: opacity 0.5s, visibility 0.5s;
-  animation: loaderFadeOut 2s 1.5s forwards;
-  /* 1.5s delay, 2s fade out */
+  /* animation removed from base state; will be triggered by .fade-out */
+}
+
+/* fade-out class triggers the fade animation, then the element will be hidden */
+.loader.fade-out {
+  animation: loaderFadeOut 5s forwards;
+  animation-delay: 0s; /* immediate fade once class applied */
 }
 
 @keyframes loaderFadeOut {
