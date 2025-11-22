@@ -1,53 +1,62 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import "../styles/about.css";
-import DarkModeToggle from "../components/DarkModeToggle";
 
 function About() {
   return (
     <div className="container">
-      <main className="about">
-        <h1 className="page-title">
-          About <span>Me</span>
+      {/* Terminal Window Container */}
+      <div className="terminal-window">
+        <h1 style={{ textAlign: "center", borderBottom: "1px solid #333", paddingBottom: "1rem", marginBottom: "2rem" }}>
+          &gt; System_Information
         </h1>
-        <p className="page-subtitle">
-          A little background about my skills and experience.
-        </p>
 
-        <section className="about-content-flex">
-          <div className="about-text-block">
-            <p>
-              👋 Hey, I’m <strong>Akanbi Divine-favour Solomon</strong> — but you can just call me Divine.  
-              I design and build digital experiences that feel simple, clean, and enjoyable to use.
-            </p>
-
-            <h3>💻 What I Do</h3>
-            <p>
-              I turn rough ideas in Figma into polished, responsive websites using HTML, CSS, JavaScript, React, 
-              and Tailwind. My goal is to bridge the gap between design and development so the final product 
-              reflects both vision <em>and</em> usability.
-            </p>
-
-            <h3>⚡ Why It Matters</h3>
-            <p>
-              I focus on the little details that make a big difference — accessibility, speed, and clarity.  
-              If something feels confusing or clunky, I keep iterating until it’s seamless.
-            </p>
-
-            <div className="about-cta">
-              <a href="/projects" className="btn-primary">
-                See My Projects →
-              </a>
+        <div className="specs-grid">
+          {/* Left Column: Stats */}
+          <div className="spec-box">
+            <h3 style={{ color: "var(--dim-color)", marginBottom: "1rem", borderBottom: "1px dashed #333", paddingBottom: "0.5rem" }}>// User_Stats</h3>
+            
+            <div className="spec-row">
+              <span style={{ color: "#888" }}>Name:</span>
+              <strong>Divine-favour</strong>
+            </div>
+            <div className="spec-row">
+              <span style={{ color: "#888" }}>Role:</span>
+              <strong>Frontend Dev</strong>
+            </div>
+            <div className="spec-row">
+              <span style={{ color: "#888" }}>Level:</span>
+              <strong>200L Student</strong>
+            </div>
+            <div className="spec-row">
+              <span style={{ color: "#888" }}>Loc:</span>
+              <strong>Lagos, NG</strong>
+            </div>
+            <div className="spec-row">
+              <span style={{ color: "#888" }}>Status:</span>
+              <strong style={{ color: "#0f0" }}>Online</strong>
             </div>
           </div>
-        </section>
-      </main>
 
-      <DarkModeToggle />
-
-      <div className="shape shape-1"></div>
-      <div className="shape shape-2"></div>
-      <div className="shape shape-3"></div>
+          {/* Right Column: Bio */}
+          <div className="spec-box">
+            <h3 style={{ color: "var(--dim-color)", marginBottom: "1rem", borderBottom: "1px dashed #333", paddingBottom: "0.5rem" }}>// Execute_Bio.exe</h3>
+            
+            <p style={{ marginBottom: "1rem", lineHeight: "1.8", color: "var(--primary-color)" }}>
+              &gt; <strong>Identity Confirmed:</strong> Akanbi Divine-favour Solomon.
+            </p>
+            <p style={{ marginBottom: "1rem", color: "#ccc" }}>
+              I am a Computer Science student at the University of Lagos. I breathe code and vibe with clean UI. 
+              My mission is to bridge the gap between rough ideas and polished digital realities.
+            </p>
+            <p style={{ marginBottom: "2rem", color: "#ccc" }}>
+              I focus on accessibility, speed, and clarity. If a UI feels clunky, I debug until it flows like water.
+            </p>
+            
+            <a href="/projects" className="btn">
+              Run_Diagnostics &gt;
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

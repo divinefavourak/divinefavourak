@@ -1,35 +1,63 @@
-import React from "react";
-import DarkModeToggle from "../components/DarkModeToggle";
+import React, { useState, useEffect } from "react";
 
 function Home() {
-  return (
-    <main className="landing">
-      <div className="landing-content">
-        <h1 className="animated-text">
-          Hi, I'm <span>Akanbi Divine-favour</span>
-        </h1>
-        <DarkModeToggle />
-        <h2 className="animated-subtext">Frontend Developer & UI Designer</h2>
-        <p className="animated-paragraph">
-          I create beautiful, responsive websites with engaging user experiences.
-        </p>
-        <div className="btn-group">
-          <a href="/projects" className="btn btn-primary">View My Work</a>
-          <a href="/contact" className="btn btn-secondary">Hire Me</a>
-        </div>
-      </div>
+  // FIXED SPELLING HERE
+  const name = "Akanbi Divine-favour";
+  const [typedName, setTypedName] = useState("");
 
-      <div className="landing-image">
-        <div className="image-wrapper">
-          <img src="/1000934452.jpg" alt="Profile" />
-          <div className="color-spot spot-1"></div>
-          <div className="color-spot spot-2"></div>
-          <div className="color-spot spot-3"></div>
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < name.length) {
+        // Use functional update to ensure characters are added correctly
+        setTypedName((prev) => name.slice(0, index + 1));
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 100); 
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <main className="container">
+      <div className="terminal-window">
+        <p style={{ color: "#666", marginBottom: "2rem", fontSize: "0.9rem" }}>
+          Last Login: {new Date().toDateString()} [SECURE CONNECTION ESTABLISHED]
+        </p>
+        
+        <div className="hero-section">
+          {/* Image Section - Left on Desktop, Top on Mobile */}
+          <div className="hero-image-container">
+            <img 
+              src="/1000934452.jpg" 
+              alt="Akanbi Divine-favour" 
+              className="hero-image" 
+            />
+          </div>
+
+          {/* Text Section - Right on Desktop, Bottom on Mobile */}
+          <div className="hero-content">
+            <div className="typewriter-text">
+              &gt; Hello, I'm {typedName}<span className="cursor"></span>
+            </div>
+
+            <div className="subtitle">Frontend Developer & UI Designer</div>
+            
+            <p className="bio-text">
+              Initializing creativity... Loading design systems... <br />
+              I build clean, functional web experiences with a focus on usability and minimalism. 
+              No fluff, just code that works.
+            </p>
+
+            <div className="btn-group">
+              <a href="/projects" className="btn">View Projects</a>
+              <a href="/contact" className="btn btn-secondary">Contact Me</a>
+            </div>
+          </div>
         </div>
       </div>
-     <div className="shape shape-1"></div>
-      <div className="shape shape-2"></div>
-      <div className="shape shape-3"></div>
     </main>
   );
 }
