@@ -1,7 +1,6 @@
 import React from "react";
 
 function About() {
-  // Extracted from your README.md
   const techStack = [
     "JavaScript", "TypeScript", "Python", "C", "HTML5/CSS3",
     "React", "React Native", "Node.js", "TailwindCSS", "Three.js",
@@ -9,8 +8,7 @@ function About() {
   ];
 
   return (
-    <div className="container">
-      {/* Terminal Window Container */}
+    <div className="container" style={{ paddingBottom: "3rem" }}>
       <div className="terminal-window">
         <h1 style={{ textAlign: "center", borderBottom: "1px solid var(--accent-gray)", paddingBottom: "1rem", marginBottom: "2rem" }}>
           &gt; System_Information
@@ -59,9 +57,9 @@ function About() {
           </div>
         </div>
 
-        {/* New Section: Tech Stack from README */}
+        {/* Tech Stack */}
         <div className="spec-box" style={{ marginTop: "2rem" }}>
-           <h3 style={{ color: "var(--dim-color)", marginBottom: "1rem", borderBottom: "1px dashed var(--accent-gray)", paddingBottom: "0.5rem" }}>// Installed_Dependencies (Tech Stack)</h3>
+           <h3 style={{ color: "var(--dim-color)", marginBottom: "1rem", borderBottom: "1px dashed var(--accent-gray)", paddingBottom: "0.5rem" }}>// Installed_Dependencies</h3>
            <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
               {techStack.map((tech, index) => (
                 <span key={index} style={{ 
@@ -77,9 +75,10 @@ function About() {
            </div>
         </div>
 
-        <div style={{ textAlign: "center", marginTop: "2rem" }}>
+        {/* Fixed Button at Bottom */}
+        <div style={{ textAlign: "center", marginTop: "3rem" }}>
             <a href="/projects" className="btn">
-              Run_Diagnostics (View Projects) &gt;
+              Run_Diagnostics &gt;
             </a>
         </div>
 
