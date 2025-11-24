@@ -1,4 +1,6 @@
 import React from "react";
+import SocialLinks from "../components/SocialLinks";
+import SimpleSocialLinks from "../components/SocialLinks";
 
 function Contact() {
   return (
@@ -31,6 +33,7 @@ function Contact() {
           <p><strong>Loc:</strong> Lagos, Nigeria</p>
           <p><strong>Tel:</strong> +234 903 184 3486</p>
           <p><strong>Mail:</strong> divinefavourakanbi07@gmail.com</p>
+          <SimpleSocialLinks />
         </div>
       </div>
     </main>

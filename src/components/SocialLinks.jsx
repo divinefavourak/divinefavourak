@@ -1,18 +1,40 @@
+// SimpleSocialLinks.jsx - Create this new component
 import React from "react";
 
-function SocialLinks() {
+function SimpleSocialLinks() {
+  const socials = [
+    { name: "GitHub", url: "https://github.com/divinefavourak" },
+    { name: "LinkedIn", url: "https://linkedin.com/in/divine-favour-akanbi-999b5b385/" },
+    { name: "X", url: "https://x.com/akcodex1" },
+    { name: "CodePen", url: "https://codepen.io/akcodex" },
+  ];
+
   return (
-    <div className="social-links">
-      <h3>Follow Me</h3>
-      <div className="links">
-        <a href="#"><i className="fab fa-twitter"></i></a>
-        <a href="#"><i className="fab fa-github"></i></a>
-        <a href="#"><i className="fab fa-linkedin-in"></i></a>
-        <a href="#"><i className="fab fa-dribbble"></i></a>
-        <a href="#"><i className="fab fa-behance"></i></a>
+    <div style={{ marginTop: "2rem" }}>
+      <p style={{ color: "var(--dim-color)", marginBottom: "0.5rem" }}>
+        &gt; Available on:
+      </p>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+        {socials.map((social, index) => (
+          <a 
+            key={index}
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "var(--primary-color)",
+              border: "1px solid var(--dim-color)",
+              padding: "0.2rem 0.8rem",
+              fontSize: "0.8rem",
+              textDecoration: "none"
+            }}
+          >
+            [{social.name}]
+          </a>
+        ))}
       </div>
     </div>
   );
 }
 
-export default SocialLinks;
+export default SimpleSocialLinks;
