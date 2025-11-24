@@ -33,7 +33,7 @@ function Contact() {
           <p><strong>Loc:</strong> Lagos, Nigeria</p>
           <p><strong>Tel:</strong> +234 903 184 3486</p>
           <p><strong>Mail:</strong> divinefavourakanbi07@gmail.com</p>
-          <SimpleSocialLinks />
+          <SocialLinks />
         </div>
       </div>
     </main>
