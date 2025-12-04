@@ -19,7 +19,7 @@ function SocialLinks() {
     },
     { 
       icon: "fab fa-codepen", 
-      url: "https://codepen.io/divinefaourak",
+      url: "https://codepen.io/divinefavourak",
       label: "CodePen"
     },
     { 
