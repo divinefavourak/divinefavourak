@@ -20,10 +20,8 @@ body {
   font-family: var(--font-stack);
   overflow-x: hidden;
   line-height: 1.6;
-  background-image: linear-gradient(
-    rgba(0, 0, 0, 0.1) 50%, 
-    rgba(0, 0, 0, 0.2) 50%
-  );
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1) 50%,
+      rgba(0, 0, 0, 0.2) 50%);
   background-size: 100% 4px;
 }
 
@@ -57,7 +55,8 @@ a:hover {
   background: #000;
   position: sticky;
   top: 0;
-  z-index: 1000; /* Ensure it stays on top */
+  z-index: 1000;
+  /* Ensure it stays on top */
 }
 
 .logo {
@@ -68,27 +67,43 @@ a:hover {
   text-transform: uppercase;
 }
 
-.nav-links { 
-  display: flex; 
-  gap: 2rem; 
+.nav-links {
+  display: flex;
+  gap: 2rem;
 }
 
-.nav-links a { 
-  font-weight: bold; 
-  text-transform: uppercase; 
+.nav-links a {
+  font-weight: bold;
+  text-transform: uppercase;
   font-size: 0.9rem;
   border: none;
   position: relative;
 }
 
 /* Brackets effect for links on desktop */
-.nav-links a::before { content: "[ "; color: var(--dim-color); opacity: 0; transition: 0.3s; }
-.nav-links a::after { content: " ]"; color: var(--dim-color); opacity: 0; transition: 0.3s; }
-.nav-links a:hover::before, .nav-links a:hover::after { opacity: 1; }
+.nav-links a::before {
+  content: "[ ";
+  color: var(--dim-color);
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.nav-links a::after {
+  content: " ]";
+  color: var(--dim-color);
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.nav-links a:hover::before,
+.nav-links a:hover::after {
+  opacity: 1;
+}
 
 /* Hide Mobile Controls on Desktop */
-.nav-toggle, .nav-close { 
-  display: none; 
+.nav-toggle,
+.nav-close {
+  display: none;
 }
 
 /* --- Terminal Window --- */
@@ -145,7 +160,17 @@ a:hover {
   animation: blink 1s infinite;
 }
 
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
 
 .bio-text {
   color: #ccc;
@@ -186,7 +211,11 @@ a:hover {
   color: #000;
 }
 
-.btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
 
 /* --- Other Page Grids --- */
 .specs-grid {
@@ -211,7 +240,7 @@ a:hover {
 
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
 }
 
@@ -238,31 +267,38 @@ a:hover {
 
 /* --- RESPONSIVE MOBILE STYLES --- */
 @media (max-width: 900px) {
-  .hero-section { 
-    flex-direction: column; 
+  .hero-section {
+    flex-direction: column;
     align-items: flex-start;
     text-align: left;
   }
-  
-  .hero-image { 
-    width: 100%; 
-    height: auto; 
+
+  .hero-image {
+    width: 100%;
+    height: auto;
     aspect-ratio: 1/1;
     max-width: 400px;
     margin-bottom: 2rem;
   }
-  
-  .typewriter-text { font-size: 2rem; }
+
+  .typewriter-text {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 768px) {
-  .nav { padding: 1rem; }
-  .container { padding: 0 1rem; }
-  
+  .nav {
+    padding: 1rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
   /* Show Menu Button */
-  .nav-toggle { 
-    display: block; 
-    font-weight: bold; 
+  .nav-toggle {
+    display: block;
+    font-weight: bold;
     cursor: pointer;
     border: 1px solid var(--primary-color);
     padding: 0.5rem;
@@ -270,7 +306,8 @@ a:hover {
 
   /* Mobile Menu Overlay */
   .nav-links {
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     position: fixed;
     top: 0;
     left: 0;
@@ -281,7 +318,8 @@ a:hover {
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    z-index: 2000; /* Highest priority */
+    z-index: 2000;
+    /* Highest priority */
     border: 2px solid var(--primary-color);
   }
 
@@ -311,9 +349,12 @@ a:hover {
     text-align: center;
     border-bottom: 1px solid var(--accent-gray);
   }
-  
-  .specs-grid { grid-template-columns: 1fr; }
+
+  .specs-grid {
+    grid-template-columns: 1fr;
+  }
 }
+
 /* Social Links Styling */
 .social-links {
   margin-top: 2rem;
@@ -350,7 +391,7 @@ a:hover {
 }
 
 .social-link:hover {
-  background-color: var(--dim-color );
+  background-color: var(--dim-color);
   color: black;
   border-color: var(--primary-color);
   transform: translateY(-2px);
@@ -362,9 +403,30 @@ a:hover {
   .social-links .links {
     justify-content: center;
   }
-  
+
   .social-link {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 480px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .terminal-window {
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .project-card {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
   }
 }
