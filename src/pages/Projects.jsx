@@ -1,4 +1,5 @@
 import React from "react";
+import FadeIn from "../components/FadeIn.jsx";
 
 const projectData = [
   {
@@ -60,7 +61,7 @@ const projectData = [
 
 function Projects() {
   return (
-    <div className="container">
+    <div className="container" style={{ paddingBottom: "3rem" }}>
       <div className="terminal-window">
         <h1 style={{ borderBottom: "1px solid #333", paddingBottom: "1rem", marginBottom: "2rem" }}>
           &gt; dir /projects
@@ -68,81 +69,88 @@ function Projects() {
 
         <div className="project-grid">
           {projectData.map((proj, index) => (
-            <div className="project-card" key={index}>
-              <h3 style={{ color: "var(--primary-color)" }}>{proj.title}</h3>
-              <p style={{ fontSize: "0.8rem", color: "var(--dim-color)", marginBottom: "0.5rem", fontWeight: "bold" }}>
-                [{proj.tech}]
-              </p>
-
-              {/* Preview Block: Iframe or Text Status */}
-              {proj.link && proj.link !== "#" ? (
-                <div style={{
-                  border: "1px solid #444",
+            <FadeIn key={index} delay={index * 150}>
+              <div className="project-card">
+                <h3>{proj.title}</h3>
+                <p style={{
+                  color: "var(--dim-color)",
+                  fontSize: "0.85rem",
                   marginBottom: "1rem",
-                  borderRadius: "6px",
-                  overflow: "hidden",
-                  backgroundColor: "#222"
+                  borderBottom: "1px dashed var(--accent-gray)",
+                  paddingBottom: "0.5rem"
+                }}>
+                  [{proj.tech}]
+                </p>
+
+                <div style={{
+                  marginBottom: '1rem',
+                  border: '1px solid #333',
+                  background: '#000',
+                  padding: '2px'
                 }}>
                   {/* Browser Mockup Header */}
                   <div style={{
-                    height: "20px",
-                    backgroundColor: "#333",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "5px",
-                    paddingLeft: "8px",
-                    borderBottom: "1px solid #444"
+                    background: '#222',
+                    padding: '5px 10px',
+                    borderBottom: '1px solid #333',
+                    display: 'flex',
+                    gap: '6px'
                   }}>
-                    <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#ff5f56" }}></div>
-                    <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#ffbd2e" }}></div>
-                    <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#27c93f" }}></div>
+                    <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff5f56' }}></div>
+                    <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffbd2e' }}></div>
+                    <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#27c93f' }}></div>
                   </div>
 
-                  {/* Scaled Iframe Container */}
-                  <div style={{
-                    height: "200px",
-                    width: "100%",
-                    position: "relative",
-                    overflow: "hidden"
-                  }}>
-                    <iframe
-                      src={proj.link}
-                      title={`${proj.title} Preview`}
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "200%", // 2x width
-                        height: "200%", // 2x height
-                        border: "none",
-                        transform: "scale(0.5)", // Scale back down
-                        transformOrigin: "0 0",
-                        pointerEvents: "none"
-                      }}
-                      loading="lazy"
-                    />
-                  </div>
+                  {proj.link && proj.link !== "#" ? (
+                    <div style={{
+                      height: "200px",
+                      width: "100%",
+                      position: "relative",
+                      overflow: "hidden"
+                    }}>
+                      <iframe
+                        src={proj.link}
+                        title={`${proj.title} Preview`}
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          width: "200%",
+                          height: "200%",
+                          border: "none",
+                          transform: "scale(0.5)",
+                          transformOrigin: "0 0",
+                          pointerEvents: "none",
+                          background: "#fff"
+                        }}
+                        loading="lazy"
+                      />
+                    </div>
+                  ) : (
+                    <div style={{
+                      height: "200px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      background: "#111",
+                      color: "var(--primary-color)",
+                      fontFamily: "monospace"
+                    }}>
+                      <div style={{ marginBottom: "0.5rem" }}>STATUS: {proj.preview.status}</div>
+                      <div style={{ fontSize: "0.8rem", color: "#666" }}>VER: {proj.preview.version} | Last: {proj.preview.lastDeployed}</div>
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div style={{
-                  border: "1px dashed #444",
-                  padding: "0.5rem",
-                  marginBottom: "1rem",
-                  backgroundColor: "rgba(0, 0, 0, 0.2)",
-                  fontSize: "0.75rem",
-                  fontFamily: "monospace",
-                  color: "#888"
-                }}>
-                  <div>STATUS: <span style={{ color: "var(--primary-color)" }}>{proj.preview.status}</span></div>
-                  <div>VER: {proj.preview.version} | Last: {proj.preview.lastDeployed}</div>
-                </div>
-              )}
 
-              <p style={{ marginBottom: "1.5rem", color: "#ccc" }}>{proj.desc}</p>
-              <a href={proj.link} target="_blank" rel="noreferrer" className="btn" style={{ padding: "0.5rem 1rem", fontSize: "0.8rem" }}>
-                EXECUTE &gt;
-              </a>
-            </div>
+                <p style={{ marginBottom: "1.5rem", fontSize: "0.95rem", lineHeight: "1.6" }}>
+                  {proj.desc}
+                </p>
+                <a href={proj.link} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ width: "100%", textAlign: "center" }}>
+                  EXECUTE &gt;
+                </a>
+              </div>
+            </FadeIn>
           ))}
         </div>
       </div>

@@ -1,33 +1,34 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const handleNavClick = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <nav className="nav">
       <div className="nav-logo">
-        <Link to="/" className="logo">
-         &lt; Akanbi.Dev /&gt;
-        </Link>
+        <a href="#home" className="logo">
+          &lt; Akanbi.Dev /&gt;
+        </a>
       </div>
 
-      {/* Mobile Toggle Button (Text Based) */}
-      <div className="nav-toggle" onClick={() => setMenuOpen(!menuOpen)}>
-        [ :: MENU :: ]
+      {/* Mobile Toggle Button (Morphing Hamburger) */}
+      <div className={`nav-toggle ${menuOpen ? "open" : ""}`} onClick={() => setMenuOpen(!menuOpen)}>
+        <span className="bar"></span>
+        <span className="bar"></span>
+        <span className="bar"></span>
       </div>
 
       {/* Navigation Links */}
       <div className={`nav-links ${menuOpen ? "active" : ""}`}>
-        {/* Close Button (Visible only on mobile inside the menu) */}
-        <span className="nav-close" onClick={() => setMenuOpen(false)}>
-          [ CLOSE X ]
-        </span>
 
-        <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-        <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
-        <Link to="/projects" onClick={() => setMenuOpen(false)}>Projects</Link>
-        <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+        <a href="#home" onClick={handleNavClick}>Home</a>
+        <a href="#about" onClick={handleNavClick}>About</a>
+        <a href="#projects" onClick={handleNavClick}>Projects</a>
+        <a href="#contact" onClick={handleNavClick}>Contact</a>
       </div>
     </nav>
   );
