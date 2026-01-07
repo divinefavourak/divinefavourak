@@ -1,5 +1,6 @@
 import React from "react";
 import FadeIn from "../components/FadeIn.jsx";
+import TechStack from "../components/TechStack.jsx";
 
 function About() {
   const techStack = [
@@ -66,19 +67,7 @@ function About() {
         <FadeIn delay={300}>
           <div className="spec-box" style={{ marginTop: "2rem" }}>
             <h3 style={{ color: "var(--dim-color)", marginBottom: "1rem", borderBottom: "1px dashed var(--accent-gray)", paddingBottom: "0.5rem" }}>// Installed_Dependencies</h3>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
-              {techStack.map((tech, index) => (
-                <span key={index} style={{
-                  border: "1px solid var(--dim-color)",
-                  padding: "0.3rem 0.8rem",
-                  fontSize: "0.85rem",
-                  color: "var(--primary-color)",
-                  backgroundColor: "#111"
-                }}>
-                  [{tech}]
-                </span>
-              ))}
-            </div>
+            <TechStack />
           </div>
         </FadeIn>
 
@@ -121,9 +110,12 @@ function About() {
         </FadeIn>
 
         {/* Fixed Button at Bottom */}
-        <div style={{ textAlign: "center", marginTop: "3rem" }}>
+        <div style={{ textAlign: "center", marginTop: "3rem", display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
           <a href="#projects" className="btn">
             Run_Diagnostics &gt;
+          </a>
+          <a href="/resume.pdf" download className="btn btn-secondary">
+            &lt; Download_Resume &gt;
           </a>
         </div>
 

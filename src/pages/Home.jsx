@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import FadeIn from "../components/FadeIn.jsx";
+import StatusBadge from "../components/StatusBadge.jsx";
 
 function Home() {
   // FIXED SPELLING HERE
@@ -43,11 +44,15 @@ function Home() {
           {/* Text Section - Right on Desktop, Bottom on Mobile */}
           <FadeIn delay={200}>
             <div className="hero-content">
+              <StatusBadge text="Available for work!" />
+
               <div className="typewriter-text">
                 &gt; Hello, I'm {typedName}<span className="cursor"></span>
               </div>
 
-              <div className="subtitle">Frontend Developer & UI Designer</div>
+              <div className="subtitle">
+                <span style={{ color: "#00ff88" }}>Frontend Developer</span> & UI Designer
+              </div>
 
               <p className="bio-text">
                 Initializing creativity... Loading design systems... <br />
@@ -56,8 +61,8 @@ function Home() {
               </p>
 
               <div className="btn-group">
-                <a href="#projects" className="btn">View Projects</a>
-                <a href="#contact" className="btn btn-secondary">Contact Me</a>
+                <a href="#projects" className="btn">View Projects →</a>
+                <a href="#contact" className="btn btn-secondary">Contact Me →</a>
               </div>
             </div>
           </FadeIn>
