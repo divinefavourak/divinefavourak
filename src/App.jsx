@@ -5,6 +5,9 @@ import Projects from "./pages/Projects.jsx";
 import About from "./pages/About.jsx";
 import Navbar from "./components/Navbar.jsx";
 import FadeIn from "./components/FadeIn.jsx";
+import SectionIndicator from "./components/SectionIndicator.jsx";
+import ScrollToTop from "./components/ScrollToTop.jsx";
+import SkipToContent from "./components/SkipToContent.jsx";
 
 function App() {
   // Smooth scroll for anchor links
@@ -25,6 +28,9 @@ function App() {
 
   return (
     <>
+      <SkipToContent />
+      <SectionIndicator />
+      <ScrollToTop />
       <Navbar />
       <div className="main-content">
         <section id="home">

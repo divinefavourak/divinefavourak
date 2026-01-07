@@ -7,6 +7,7 @@ const projectData = [
     desc: "A search engine for recipes built with JS. Find meals instantly.",
     tech: "JAVASCRIPT / API",
     link: "https://divinefavourak.github.io/recipe-book/",
+    github: "https://github.com/divinefavourak/recipe-book",
     preview: {
       status: "STABLE",
       version: "v1.0.2",
@@ -18,6 +19,7 @@ const projectData = [
     desc: "Academic fraud detection platform for modern institutions.",
     tech: "REACT / AI INTEGRATION",
     link: "https://edu-guard-ai.vercel.app/",
+    github: "https://github.com/divinefavourak/edu-guard-ai",
     preview: {
       status: "BETA",
       version: "v0.9.5",
@@ -146,13 +148,22 @@ function Projects() {
                 <p style={{ marginBottom: "1.5rem", fontSize: "0.95rem", lineHeight: "1.6" }}>
                   {proj.desc}
                 </p>
-                <a href={proj.link} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ width: "100%", textAlign: "center" }}>
-                  EXECUTE &gt;
-                </a>
+                <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+                  <a href={proj.link} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ flex: "1", minWidth: "120px", textAlign: "center" }}>
+                    VIEW DEMO &gt;
+                  </a>
+                  {proj.github && (
+                    <a href={proj.github} target="_blank" rel="noopener noreferrer" className="btn" style={{ flex: "1", minWidth: "120px", textAlign: "center" }}>
+                      &lt; SOURCE CODE &gt;
+                    </a>
+                  )}
+                </div>
               </div>
             </FadeIn>
           ))}
         </div>
+
+
       </div>
     </div>
   );

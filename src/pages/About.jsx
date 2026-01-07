@@ -82,6 +82,44 @@ function About() {
           </div>
         </FadeIn>
 
+        {/* Vertical Timeline */}
+        <FadeIn delay={400}>
+          <div className="spec-box" style={{ marginTop: "2rem" }}>
+            <h3 style={{ color: "var(--dim-color)", marginBottom: "1rem", borderBottom: "1px dashed var(--accent-gray)", paddingBottom: "0.5rem" }}>// System_Logs</h3>
+            <div className="timeline-container">
+              <div className="timeline-line"></div>
+
+              <div className="timeline-item">
+                <div className="timeline-dot"></div>
+                <div className="timeline-date">2021</div>
+                <div className="timeline-title">Started Programming Journey</div>
+                <div className="timeline-desc">First line of code written. Explored HTML & CSS fundamentals.</div>
+              </div>
+
+              <div className="timeline-item">
+                <div className="timeline-dot"></div>
+                <div className="timeline-date">2022</div>
+                <div className="timeline-title">Deep Dive into JavaScript</div>
+                <div className="timeline-desc">Mastered ES6+, DOM manipulation, and built first interactive projects.</div>
+              </div>
+
+              <div className="timeline-item">
+                <div className="timeline-dot"></div>
+                <div className="timeline-date">2024 - Present</div>
+                <div className="timeline-title">CS Degree @ UNILAG</div>
+                <div className="timeline-desc">Started formal Computer Science education. Exploring algorithms and data structures.</div>
+              </div>
+
+              <div className="timeline-item">
+                <div className="timeline-dot"></div>
+                <div className="timeline-date">2025</div>
+                <div className="timeline-title">Full Stack Development</div>
+                <div className="timeline-desc">Building complex apps with React, Node.js, Django, and Modern UI frameworks.</div>
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+
         {/* Fixed Button at Bottom */}
         <div style={{ textAlign: "center", marginTop: "3rem" }}>
           <a href="#projects" className="btn">
