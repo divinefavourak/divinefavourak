@@ -359,7 +359,8 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
         this.renderer = new THREE.WebGLRenderer({
           antialias: false,
           alpha: true,
-          stencil: false
+          stencil: false,
+          depth: false
         });
         this.renderer.setSize(initW, initH, false);
         this.renderer.setPixelRatio(window.devicePixelRatio);
