@@ -1,4 +1,4 @@
-const { Resend } = require('resend');
+import { Resend } from 'resend';
 
 if (!process.env.RESEND_API_KEY) {
   console.error('RESEND_API_KEY environment variable is not set');
@@ -35,7 +35,7 @@ function isRateLimited(ip) {
   return false;
 }
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   // CORS
   res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND_URL || '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
