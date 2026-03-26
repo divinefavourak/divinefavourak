@@ -358,11 +358,17 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
 
         this.renderer = new THREE.WebGLRenderer({
           antialias: false,
-          alpha: true
+          alpha: true,
+          stencil: false
         });
         this.renderer.setSize(initW, initH, false);
         this.renderer.setPixelRatio(window.devicePixelRatio);
-        this.composer = new EffectComposer(this.renderer);
+        const renderTarget = new THREE.WebGLRenderTarget(initW, initH, {
+          stencilBuffer: false,
+          depthBuffer: true,
+          type: THREE.HalfFloatType
+        });
+        this.composer = new EffectComposer(this.renderer, renderTarget);
         container.append(this.renderer.domElement);
 
         this.camera = new THREE.PerspectiveCamera(options.fov, initW / initH, 0.1, 10000);
@@ -436,6 +442,8 @@ const Hyperspeed = ({ effectOptions = DEFAULT_EFFECT_OPTIONS }) => {
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
         this.composer.setSize(width, height);
+        this.composer.inputBuffer?.setSize(width, height);
+        this.composer.outputBuffer?.setSize(width, height);
         this.hasValidSize = true;
       }
 

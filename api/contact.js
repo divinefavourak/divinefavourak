@@ -1,5 +1,12 @@
 const { Resend } = require('resend');
 
+if (!process.env.RESEND_API_KEY) {
+  console.error('RESEND_API_KEY environment variable is not set');
+}
+if (!process.env.RECIPIENT_EMAIL) {
+  console.error('RECIPIENT_EMAIL environment variable is not set');
+}
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Simple validation
@@ -94,8 +101,8 @@ module.exports = async function handler(req, res) {
   });
 
   if (error) {
-    console.error('Resend error:', error);
-    return res.status(500).json({ success: false, message: 'Failed to send message. Please try again later.' });
+    console.error('Resend error:', JSON.stringify(error));
+    return res.status(500).json({ success: false, message: `Failed to send message: ${error.message || error.name || 'Unknown error'}` });
   }
 
   return res.status(200).json({ success: true, message: 'Message sent successfully! I\'ll get back to you soon.' });
