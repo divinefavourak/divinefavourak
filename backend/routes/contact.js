@@ -1,6 +1,6 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
-const emailService = require('../services/emailService');
+const { sendContactEmail } = require('../services/emailService');
 
 const router = express.Router();
 
@@ -39,7 +39,7 @@ router.post('/', contactValidation, async (req, res) => {
 
     try {
         // Send email
-        await emailService.sendContactEmail(name, email, message);
+        await sendContactEmail(name, email, message);
 
         res.status(200).json({
             success: true,

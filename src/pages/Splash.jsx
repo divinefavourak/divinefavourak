@@ -1,23 +1,13 @@
-import { useState } from 'react';
 import Hyperspeed from '../components/Hyperspeed';
 import { hyperspeedPresets } from '../constants/hyperspeedPresets';
 
 export default function Splash({ onEnter }) {
-  const [leaving, setLeaving] = useState(false);
-
-  const handleEnter = () => {
-    setLeaving(true);
-    setTimeout(onEnter, 800);
-  };
-
   return (
     <div
       style={{
         position: 'fixed',
         inset: 0,
         zIndex: 9999,
-        opacity: leaving ? 0 : 1,
-        transition: 'opacity 0.8s ease',
       }}
     >
       {/* Three.js background */}
@@ -48,7 +38,7 @@ export default function Splash({ onEnter }) {
         }}
       >
         <p style={{ color: '#888', letterSpacing: '0.5em', fontSize: '0.75rem', marginBottom: '1rem' }}>
-          &gt; BOOT_SEQUENCE_COMPLETE
+          &gt; BOOT_SEQUENCE_LOADER
         </p>
 
         <h1
@@ -73,11 +63,11 @@ export default function Splash({ onEnter }) {
             marginBottom: '3rem',
           }}
         >
-          FRONTEND_DEV · UNILAG · NG
+          FRONTEND_DEV · UI/UX_DEV · NG
         </p>
 
         <button
-          onClick={handleEnter}
+          onClick={onEnter}
           style={{
             fontFamily: "'Courier New', Courier, monospace",
             color: '#ffffff',
@@ -100,7 +90,7 @@ export default function Splash({ onEnter }) {
             e.currentTarget.style.borderColor = 'rgba(255,255,255,0.6)';
           }}
         >
-          ENTER_PORTFOLIO
+          KNOW_ME
         </button>
 
         <p style={{ color: '#333', fontSize: '0.65rem', letterSpacing: '0.3em', marginTop: '4rem' }}>

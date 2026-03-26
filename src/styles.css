@@ -1,3 +1,11 @@
+/* Pixel transition keyframe */
+@keyframes px-flash {
+  0%   { opacity: 0; }
+  25%  { opacity: 1; }
+  75%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 /* Global "Noir Terminal" Styles */
 :root {
   --bg-color: #000000;
@@ -79,6 +87,11 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
+}
+
+/* Main content offset for fixed PillNav */
+.main-content {
+  padding-top: 5rem;
 }
 
 /* Single Page Section Spacing */

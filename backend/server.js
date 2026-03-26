@@ -54,6 +54,6 @@ app.use((err, req, res, next) => {
 // Start server
 app.listen(PORT, () => {
     console.log(`✅ Backend server running on http://localhost:${PORT}`);
-    console.log(`📧 Email service: ${process.env.EMAIL_SERVICE || 'Not configured'}`);
+    console.log(`📧 Email service: Resend (${process.env.RESEND_API_KEY ? 'configured' : 'API key missing'})`);
     console.log(`🌐 Accepting requests from: ${process.env.FRONTEND_URL || 'http://localhost:5173'}`);
 });

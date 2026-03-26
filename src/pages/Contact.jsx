@@ -14,8 +14,6 @@ function Contact() {
     error: null
   });
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -29,7 +27,7 @@ function Contact() {
     setStatus({ submitting: true, success: false, error: null });
 
     try {
-      const response = await fetch(`${API_URL}/api/contact`, {
+      const response = await fetch('/api/contact', {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

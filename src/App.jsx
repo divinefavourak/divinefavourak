@@ -9,15 +9,21 @@ import FadeIn from "./components/FadeIn.jsx";
 import SectionIndicator from "./components/SectionIndicator.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import SkipToContent from "./components/SkipToContent.jsx";
+import PixelTransition from "./components/PixelTransition.jsx";
 
 function App() {
   const [splashDone, setSplashDone] = useState(false);
   const [mainVisible, setMainVisible] = useState(false);
+  const [pixelActive, setPixelActive] = useState(false);
 
   const handleEnter = () => {
-    setSplashDone(true);
-    // Slight delay so the fade-in feels intentional
-    setTimeout(() => setMainVisible(true), 100);
+    setPixelActive(true);
+    // Remove splash once pixels are mostly covering the screen (~450ms)
+    setTimeout(() => setSplashDone(true), 450);
+    // Reveal main site shortly after splash is gone
+    setTimeout(() => setMainVisible(true), 550);
+    // Clean up pixel grid after animation completes
+    setTimeout(() => setPixelActive(false), 1500);
   };
 
   // Smooth scroll for anchor links
@@ -35,6 +41,7 @@ function App() {
   return (
     <>
       {!splashDone && <Splash onEnter={handleEnter} />}
+      <PixelTransition active={pixelActive} />
 
       <div
         style={{
