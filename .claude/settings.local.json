@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx shadcn@latest add @react-bits/LogoLoop-JS-CSS)",
+      "Bash(npm install:*)"
+    ]
+  }
+}
