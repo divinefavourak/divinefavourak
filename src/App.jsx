@@ -4,7 +4,7 @@ import Contact from "./pages/Contact.jsx";
 import Projects from "./pages/Projects.jsx";
 import About from "./pages/About.jsx";
 import Splash from "./pages/Splash.jsx";
-import Navbar from "./components/Navbar.jsx";
+import PillNav from "./components/PillNav.jsx";
 import FadeIn from "./components/FadeIn.jsx";
 import SectionIndicator from "./components/SectionIndicator.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
@@ -46,7 +46,17 @@ function App() {
         <SkipToContent />
         <SectionIndicator />
         <ScrollToTop />
-        <Navbar />
+        <PillNav
+          items={[
+            { href: '#home',     label: 'Home'     },
+            { href: '#about',    label: 'About'    },
+            { href: '#projects', label: 'Projects' },
+            { href: '#contact',  label: 'Contact'  },
+          ]}
+          pillColor="#ffffff"
+          hoveredPillTextColor="#000000"
+          baseColor="#ffffff"
+        />
         <div className="main-content">
           <section id="home">
             <FadeIn>

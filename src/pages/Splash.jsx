@@ -21,9 +21,7 @@ export default function Splash({ onEnter }) {
       }}
     >
       {/* Three.js background */}
-      <div style={{ position: 'absolute', inset: 0 }}>
-        <Hyperspeed preset={hyperspeedPresets.one} style={{ width: '100%', height: '100%' }} />
-      </div>
+      <Hyperspeed effectOptions={hyperspeedPresets.one} />
 
       {/* Overlay gradient */}
       <div

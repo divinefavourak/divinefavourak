@@ -1,0 +1,221 @@
+/* ── Container ──────────────────────────────────────────────────────────────── */
+.pill-nav-container {
+  position: fixed;
+  top: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: max-content;
+  max-width: calc(100vw - 2rem);
+}
+
+/* ── Nav bar ────────────────────────────────────────────────────────────────── */
+.pill-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  padding: 0.4rem 0.75rem;
+  color: var(--base);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* ── Logo ───────────────────────────────────────────────────────────────────── */
+.pill-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  flex-shrink: 0;
+}
+
+.pill-logo img {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+.pill-logo-text {
+  color: var(--base);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.pill-logo:hover {
+  background: transparent;
+  color: var(--base);
+}
+
+/* ── Nav items ──────────────────────────────────────────────────────────────── */
+.pill-nav-items {
+  display: flex;
+  align-items: center;
+}
+
+.pill-list {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Individual pill ────────────────────────────────────────────────────────── */
+.pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 0.04em;
+  color: var(--base);
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s ease;
+  background: transparent;
+}
+
+.pill:hover {
+  background: transparent;
+  color: var(--base);
+}
+
+.pill.is-active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Circle blob (hover fill) ───────────────────────────────────────────────── */
+.hover-circle {
+  position: absolute;
+  left: 50%;
+  background: var(--pill-bg, #fff);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* ── Label stack ────────────────────────────────────────────────────────────── */
+.label-stack {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 1.1em;
+  z-index: 1;
+}
+
+.pill-label {
+  display: block;
+  color: var(--pill-text, #fff);
+  line-height: 1.1;
+}
+
+.pill-label-hover {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--hover-text, #060010);
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+/* ── Hamburger ──────────────────────────────────────────────────────────────── */
+.mobile-menu-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 999px;
+}
+
+.hamburger-line {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--base, #fff);
+  border-radius: 2px;
+  transform-origin: center;
+}
+
+/* ── Mobile popover ─────────────────────────────────────────────────────────── */
+.mobile-menu-popover {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  z-index: 999;
+}
+
+.mobile-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.mobile-menu-link {
+  display: block;
+  padding: 0.6rem 1rem;
+  border-radius: 0.6rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: var(--base, #fff);
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.mobile-menu-link:hover,
+.mobile-menu-link.is-active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--base, #fff);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────────── */
+.desktop-only {
+  display: flex;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .desktop-only {
+    display: none;
+  }
+  .mobile-only {
+    display: flex;
+  }
+}
