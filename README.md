@@ -64,8 +64,17 @@
 ### 📊 GitHub Stats
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=divinefavourak&show_icons=true&theme=synthwave&hide_border=true&count_private=true" height="170" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=divinefavourak&layout=compact&theme=synthwave&hide_border=true" height="170" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=divinefavourak&theme=radical" />
+</p>
+
+<p align="center">
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=divinefavourak&theme=radical" height="180" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=divinefavourak&theme=radical" height="180" />
+</p>
+
+<p align="center">
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=divinefavourak&theme=radical" height="180" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=divinefavourak&theme=radical&utcOffset=1" height="180" />
 </p>
 
 <p align="center">
@@ -91,7 +100,7 @@
 ---
 
 <p align="center">
-  <img src="https://visitcount.itsvg.in/api?id=divinefavourak&icon=3&color=9" alt="visitor count" />
+  <img src="https://komarev.com/ghpvc/?username=divinefavourak&style=for-the-badge&color=blueviolet&label=Profile+Views" alt="profile views" />
 </p>
 
 <p align="center"><sub>Built with ❤️ and a whole lot of late nights.</sub></p>
