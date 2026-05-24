@@ -48,8 +48,9 @@ function Home() {
               <StatusBadge text="Available for work!" />
 
               <h1 className="typewriter-text" itemProp="name">
-                {/* Full name always in DOM for crawlers; animation is presentational */}
-                <span className="sr-only">Akanbi Divine-favour Solomon — Frontend Developer &amp; UI Designer, Lagos Nigeria</span>
+                <span style={{ position:"absolute", width:"1px", height:"1px", padding:0, margin:"-1px", overflow:"hidden", clip:"rect(0,0,0,0)", whiteSpace:"nowrap", borderWidth:0 }}>
+                  Akanbi Divine-favour Solomon — Frontend Developer &amp; UI Designer, Lagos Nigeria
+                </span>
                 <span aria-hidden="true">&gt; Hello, I'm {typedName}<span className="cursor"></span></span>
               </h1>
 
