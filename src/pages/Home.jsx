@@ -35,8 +35,9 @@ function Home() {
             <div className="hero-image-container">
               <img
                 src="/1000934452.jpg"
-                alt="Akanbi Divine-favour"
+                alt="Akanbi Divine-favour Solomon — Frontend Developer and UI Designer based in Lagos, Nigeria"
                 className="hero-image"
+                itemProp="image"
               />
             </div>
           </FadeIn>
@@ -47,7 +48,9 @@ function Home() {
               <StatusBadge text="Available for work!" />
 
               <h1 className="typewriter-text" itemProp="name">
-                &gt; Hello, I'm {typedName}<span className="cursor"></span>
+                {/* Full name always in DOM for crawlers; animation is presentational */}
+                <span className="sr-only">Akanbi Divine-favour Solomon — Frontend Developer &amp; UI Designer, Lagos Nigeria</span>
+                <span aria-hidden="true">&gt; Hello, I'm {typedName}<span className="cursor"></span></span>
               </h1>
 
               <div className="subtitle" itemProp="jobTitle">
