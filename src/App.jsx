@@ -64,26 +64,26 @@ function App() {
           hoveredPillTextColor="#000000"
           baseColor="#ffffff"
         />
-        <div className="main-content">
-          <section id="home">
+        <div className="main-content" itemScope itemType="https://schema.org/Person">
+          <section id="home" aria-label="Introduction">
             <FadeIn>
               <Home />
             </FadeIn>
           </section>
 
-          <section id="about">
+          <section id="about" aria-label="About Divine-favour Akanbi">
             <FadeIn>
               <About />
             </FadeIn>
           </section>
 
-          <section id="projects">
+          <section id="projects" aria-label="Projects by Divine-favour Akanbi">
             <FadeIn>
               <Projects />
             </FadeIn>
           </section>
 
-          <section id="contact">
+          <section id="contact" aria-label="Contact Divine-favour Akanbi">
             <FadeIn>
               <Contact />
             </FadeIn>

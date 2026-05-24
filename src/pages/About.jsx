@@ -12,9 +12,9 @@ function About() {
   return (
     <div className="container" style={{ paddingBottom: "3rem" }}>
       <div className="terminal-window">
-        <h1 style={{ textAlign: "center", borderBottom: "1px solid var(--accent-gray)", paddingBottom: "1rem", marginBottom: "2rem" }}>
+        <h2 style={{ textAlign: "center", borderBottom: "1px solid var(--accent-gray)", paddingBottom: "1rem", marginBottom: "2rem" }}>
           &gt; System_Information
-        </h1>
+        </h2>
 
         <div className="specs-grid">
           {/* Left Column: Stats */}

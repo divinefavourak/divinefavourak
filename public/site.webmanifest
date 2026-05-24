@@ -1,0 +1,18 @@
+{
+  "name": "Divine-favour Akanbi | Frontend Developer",
+  "short_name": "DA Portfolio",
+  "description": "Portfolio of Akanbi Divine-favour Solomon — Frontend Developer & UI Designer from Lagos, Nigeria.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00ff88",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/icon.jpg",
+      "sizes": "any",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}

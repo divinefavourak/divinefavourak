@@ -65,15 +65,15 @@ function Projects() {
   return (
     <div className="container" style={{ paddingBottom: "3rem" }}>
       <div className="terminal-window">
-        <h1 style={{ borderBottom: "1px solid #333", paddingBottom: "1rem", marginBottom: "2rem" }}>
+        <h2 style={{ borderBottom: "1px solid #333", paddingBottom: "1rem", marginBottom: "2rem" }}>
           &gt; dir /projects
-        </h1>
+        </h2>
 
         <div className="project-grid">
           {projectData.map((proj, index) => (
             <FadeIn key={index} delay={index * 150}>
-              <div className="project-card">
-                <h3>{proj.title}</h3>
+              <div className="project-card" itemScope itemType="https://schema.org/SoftwareApplication">
+                <h3 itemProp="name">{proj.title}</h3>
                 <p style={{
                   color: "var(--dim-color)",
                   fontSize: "0.85rem",
@@ -145,11 +145,11 @@ function Projects() {
                   )}
                 </div>
 
-                <p style={{ marginBottom: "1.5rem", fontSize: "0.95rem", lineHeight: "1.6" }}>
+                <p style={{ marginBottom: "1.5rem", fontSize: "0.95rem", lineHeight: "1.6" }} itemProp="description">
                   {proj.desc}
                 </p>
                 <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                  <a href={proj.link} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ flex: "1", minWidth: "120px", textAlign: "center" }}>
+                  <a href={proj.link} target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ flex: "1", minWidth: "120px", textAlign: "center" }} itemProp="url">
                     VIEW DEMO &gt;
                   </a>
                   {proj.github && (

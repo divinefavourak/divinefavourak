@@ -46,15 +46,15 @@ function Home() {
             <div className="hero-content">
               <StatusBadge text="Available for work!" />
 
-              <div className="typewriter-text">
+              <h1 className="typewriter-text" itemProp="name">
                 &gt; Hello, I'm {typedName}<span className="cursor"></span>
-              </div>
+              </h1>
 
-              <div className="subtitle">
+              <div className="subtitle" itemProp="jobTitle">
                 <span style={{ color: "#00ff88" }}>Frontend Developer</span> & UI Designer
               </div>
 
-              <p className="bio-text">
+              <p className="bio-text" itemProp="description">
                 Initializing creativity... Loading design systems... <br />
                 I build clean, functional web experiences with a focus on usability and minimalism.
                 No fluff, just code that works.

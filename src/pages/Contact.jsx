@@ -65,7 +65,7 @@ function Contact() {
   return (
     <main className="container">
       <div className="terminal-window">
-        <h1 style={{ marginBottom: "2rem" }}>&gt; Initiate_Connection</h1>
+        <h2 style={{ marginBottom: "2rem" }}>&gt; Initiate_Connection</h2>
 
         <FadeIn delay={100}>
           <form onSubmit={handleSubmit} style={{ maxWidth: "600px" }}>
@@ -153,9 +153,9 @@ function Contact() {
 
         <FadeIn delay={200}>
           <div style={{ marginTop: "3rem", borderTop: "1px dashed #444", paddingTop: "1rem" }}>
-            <p><strong>Loc:</strong> Lagos, Nigeria</p>
-            <p><strong>Tel:</strong> +234 903 184 3486</p>
-            <p><strong>Mail:</strong> divinefavourakanbi07@gmail.com</p>
+            <p><strong>Loc:</strong> <span itemProp="addressLocality">Lagos</span>, <span itemProp="addressCountry">Nigeria</span></p>
+            <p><strong>Tel:</strong> <a href="tel:+2349031843486" itemProp="telephone" style={{ color: "inherit", textDecoration: "none" }}>+234 903 184 3486</a></p>
+            <p><strong>Mail:</strong> <a href="mailto:divinefavourakanbi07@gmail.com" itemProp="email" style={{ color: "inherit", textDecoration: "none" }}>divinefavourakanbi07@gmail.com</a></p>
             <SocialLinks />
           </div>
         </FadeIn>
