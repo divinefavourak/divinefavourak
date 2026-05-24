@@ -51,7 +51,7 @@ function About() {
               <h3 style={{ color: "var(--dim-color)", marginBottom: "1rem", borderBottom: "1px dashed var(--accent-gray)", paddingBottom: "0.5rem" }}>// Execute_Bio.exe</h3>
 
               <p style={{ marginBottom: "1rem", lineHeight: "1.8", color: "var(--primary-color)" }}>
-                &gt; <strong>Identity Confirmed:</strong> Akanbi Divine-favour Solomon.
+                &gt; <strong>Identity Confirmed:</strong> Divine-favour Akanbi Solomon.
               </p>
               <p style={{ marginBottom: "1rem", color: "#ccc" }}>
                 I am a 200-level Computer Science student at the University of Lagos. I breathe code, vibe with clean UI, and find joy in making things work and look good.
