@@ -14,7 +14,7 @@ function SocialLinks() {
     },
     {
       icon: "fab fa-twitter",
-      url: "https://x.com/akcodex1",
+      url: "https://x.com/theDivineAkanbi",
       label: "X/Twitter"
     },
     {
