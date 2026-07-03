@@ -9,18 +9,22 @@ import FadeIn from "../components/FadeIn.jsx";
 const roles = [
   {
     icon: "👑",
+    logo: "/logos/rccg.png",
+    logoAlt: "RCCG logo",
     title: "Regional Teens President",
-    org: "RCCG Region 63 Junior Church",
-    desc: "Leading and coordinating the teens ministry across RCCG Region 63. Responsible for the spiritual development, pastoral care, and welfare of teenagers across the region. Organising events, overseeing regional activities, and mentoring teen leaders.",
+    org: "Region 63 Junior Church — RCCG",
+    desc: "Regional Teens President of Region 63 Junior Church, The Redeemed Christian Church of God (RCCG). Responsible for the spiritual development, pastoral care, and welfare of teenagers across the region — organising events, overseeing regional activities, and mentoring teen leaders.",
     badge: "CURRENT",
     link: "https://rccg.org",
     linkLabel: "RCCG.ORG →",
   },
   {
     icon: "🏛️",
+    logo: "/logos/dtce.png",
+    logoAlt: "RCCG DTCE logo",
     title: "National Teens Vice President",
-    org: "Lagos Zone 5",
-    desc: "Serving on the National Teens Board for Lagos Zone 5 — working alongside the president to oversee teen leadership programmes, drive zone-wide strategy, coordinate outreach initiatives, and ensure the growth and spiritual health of the teens department across the zone.",
+    org: "RCCG DTCE — Lagos Zone 5",
+    desc: "Serving under RCCG's Directorate of Teens and Children Education (DTCE) on the National Teens Board for Lagos Zone 5 — working alongside the president to oversee teen leadership programmes, drive zone-wide strategy, coordinate outreach initiatives, and ensure the growth and spiritual health of the teens department across the zone.",
     badge: "CURRENT",
     link: null,
     linkLabel: null,
@@ -50,8 +54,13 @@ export function LeaderProfile() {
           </p>
 
           <div className="nb-role-pills">
-            <span className="nb-role-pill">👑 Regional Teens President</span>
-            <span className="nb-role-pill">🏛️ National VP — Lagos Zone 5</span>
+            <span className="nb-role-pill">👑 Regional Teens President — R63, RCCG</span>
+            <span className="nb-role-pill">🏛️ National Teens VP — RCCG DTCE, Lagos Zone 5</span>
+          </div>
+
+          <div className="nb-leader-logos" aria-label="Affiliated organisations">
+            <img src="/logos/rccg.png" alt="The Redeemed Christian Church of God (RCCG)" title="RCCG" />
+            <img src="/logos/dtce.png" alt="RCCG Directorate of Teens and Children Education (DTCE)" title="RCCG DTCE" />
           </div>
 
           <p className="nb-bio">
@@ -76,7 +85,11 @@ export function LeaderRoles() {
             <div className="nb-role-card">
               <div className="nb-role-card-bar">
                 <div className="nb-role-card-bar-title">
-                  <span className="nb-role-icon" aria-hidden="true">{role.icon}</span>
+                  {role.logo ? (
+                    <img src={role.logo} alt={role.logoAlt} className="nb-role-logo" />
+                  ) : (
+                    <span className="nb-role-icon" aria-hidden="true">{role.icon}</span>
+                  )}
                   <span className="nb-role-card-title">{role.title}</span>
                 </div>
                 <span className="nb-role-badge">{role.badge}</span>

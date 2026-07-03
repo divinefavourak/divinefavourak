@@ -910,6 +910,22 @@ section:last-child { border-bottom: none; }
   box-shadow: var(--shadow-sm);
 }
 
+.nb-leader-logos {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+.nb-leader-logos img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  background: var(--white);
+  border: 2px solid var(--black);
+  box-shadow: var(--shadow-sm);
+  padding: 3px;
+}
+
 .nb-role-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -944,6 +960,15 @@ section:last-child { border-bottom: none; }
   gap: 0.5rem;
 }
 .nb-role-icon { font-size: 1.1rem; }
+.nb-role-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  background: var(--white);
+  border: 2px solid var(--black);
+  padding: 2px;
+  flex-shrink: 0;
+}
 .nb-role-card-title {
   font-family: var(--font-display);
   font-size: 0.8rem;
