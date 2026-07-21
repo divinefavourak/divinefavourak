@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import NBWindow from "../components/NBWindow.jsx";
 import DriveIcon from "../components/DriveIcon.jsx";
 import { DRIVES } from "../os/filesystem.jsx";
+import { useExamLoginOpen } from "../utils/examAccess.js";
 
 /* ============================================================
    Desktop — AKANBI.OS home screen at "/".
@@ -14,6 +15,7 @@ function Desktop() {
   const [typedName, setTypedName] = useState("");
   const [done, setDone] = useState(false);
   const navigate = useNavigate();
+  const loginOpen = useExamLoginOpen();
 
   useEffect(() => {
     let index = 0;
@@ -49,6 +51,9 @@ function Desktop() {
         />
         <DriveIcon icon="📬" label="CONTACT.TXT" to="/contact" accent="lime" />
         <DriveIcon icon="📄" label="RESUME.PDF" href="/resume.pdf" accent="pink" />
+        {loginOpen && (
+          <DriveIcon icon="🔐" label="LOGIN.EXE" sub="Exam access" to="/login" accent="yellow" />
+        )}
       </aside>
 
       <div className="nb-desktop-main">
