@@ -1,0 +1,241 @@
+/* ============================================================
+   QUIZ — standalone Google-Forms-like styling.
+   Deliberately NOT themed like the rest of the site (no Giflika,
+   no hard shadows, no square corners). Everything is prefixed
+   .gq- and re-declares the globals that styles.css forces:
+     - `*  { border-radius: 0 !important }`
+     - `h1..h6 { font-family: display; text-transform: uppercase }`
+   Class selectors (0,1,0) outrank the universal selector (0,0,0),
+   so `!important` here reliably wins.
+   ============================================================ */
+
+.gq-page {
+  --gq-purple: #673ab7;
+  --gq-purple-dark: #5b2ea8;
+  --gq-red: #d93025;
+  --gq-line: #dadce0;
+  --gq-text: #202124;
+  --gq-muted: #5f6368;
+
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  overflow-y: auto;
+  background: #f0ebf8;
+  color: var(--gq-text);
+  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gq-shell {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 12px 64px;
+}
+
+/* ---------- cards ---------- */
+.gq-card {
+  background: #fff;
+  border: 1px solid var(--gq-line);
+  border-radius: 8px !important;
+  padding: 24px;
+  margin-bottom: 12px;
+}
+
+.gq-card-head {
+  border-top: 10px solid var(--gq-purple);
+  padding-top: 22px;
+}
+
+.gq-title {
+  font-family: inherit !important;
+  font-size: 32px !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  line-height: 1.25 !important;
+  color: var(--gq-text);
+  margin-bottom: 10px !important;
+}
+
+.gq-desc {
+  font-size: 14px;
+  color: var(--gq-muted);
+  margin-bottom: 14px;
+}
+
+.gq-signed-in {
+  border-top: 1px solid var(--gq-line);
+  padding-top: 14px;
+  font-size: 13px;
+  color: var(--gq-muted);
+}
+.gq-signed-in strong { color: var(--gq-text); font-weight: 500; }
+
+.gq-required-note {
+  color: var(--gq-red);
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+/* ---------- questions ---------- */
+.gq-q-label {
+  font-size: 16px;
+  color: var(--gq-text);
+  margin-bottom: 16px;
+  display: block;
+}
+.gq-star { color: var(--gq-red); margin-left: 2px; }
+
+.gq-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Real radio input, restyled — keeps keyboard + screen-reader semantics. */
+.gq-option input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 2px solid var(--gq-muted);
+  border-radius: 50% !important;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  transition: border-color 0.15s ease;
+}
+.gq-option input[type="radio"]::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50% !important;
+  transform: scale(0);
+  transition: transform 0.15s ease;
+  background: var(--gq-purple);
+}
+.gq-option input[type="radio"]:checked {
+  border-color: var(--gq-purple);
+}
+.gq-option input[type="radio"]:checked::before { transform: scale(1); }
+.gq-option input[type="radio"]:focus-visible {
+  outline: 2px solid var(--gq-purple);
+  outline-offset: 3px;
+}
+
+/* ---------- short answer ---------- */
+.gq-text-input {
+  width: 100%;
+  max-width: 380px;
+  border: none;
+  border-bottom: 1px solid var(--gq-line);
+  padding: 6px 0;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--gq-text);
+  background: transparent;
+  border-radius: 0 !important;
+}
+.gq-text-input::placeholder { color: #9aa0a6; }
+.gq-text-input:focus {
+  outline: none;
+  border-bottom: 2px solid var(--gq-purple);
+  padding-bottom: 5px;
+}
+
+/* ---------- validation ---------- */
+.gq-card-error { border: 1px solid var(--gq-red); }
+.gq-error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gq-red);
+  font-size: 12px;
+  margin-top: 14px;
+}
+
+/* ---------- actions ---------- */
+.gq-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.gq-submit {
+  background: var(--gq-purple);
+  color: #fff;
+  border: none;
+  border-radius: 4px !important;
+  padding: 10px 24px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+.gq-submit:hover {
+  background: var(--gq-purple-dark);
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.35);
+}
+
+.gq-linkbtn {
+  background: none;
+  border: none;
+  color: var(--gq-purple);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px;
+  cursor: pointer;
+}
+.gq-linkbtn:hover { background: rgba(103, 58, 183, 0.06); }
+
+.gq-progress {
+  font-size: 12px;
+  color: var(--gq-muted);
+  text-align: center;
+  margin: 18px 0 6px;
+}
+
+.gq-footer {
+  font-size: 12px;
+  color: var(--gq-muted);
+  text-align: center;
+  margin-top: 22px;
+  line-height: 1.7;
+}
+
+/* ---------- result screen ---------- */
+.gq-score {
+  font-size: 40px;
+  font-weight: 400;
+  color: var(--gq-purple);
+  margin: 6px 0 2px;
+}
+
+.gq-review-item {
+  border-top: 1px solid var(--gq-line);
+  padding: 14px 0;
+  font-size: 14px;
+}
+.gq-review-item:first-of-type { border-top: none; }
+.gq-review-q { color: var(--gq-text); margin-bottom: 6px; }
+.gq-review-a { color: var(--gq-muted); display: flex; gap: 8px; }
+.gq-ok { color: #188038; }
+.gq-bad { color: var(--gq-red); }
+
+@media (max-width: 480px) {
+  .gq-shell { padding: 12px 8px 48px; }
+  .gq-card { padding: 20px 16px; }
+  .gq-title { font-size: 26px !important; }
+}

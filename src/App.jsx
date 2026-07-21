@@ -4,6 +4,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Desktop from "./pages/Desktop.jsx";
 import Contact from "./pages/Contact.jsx";
 import Login from "./pages/Login.jsx";
+import Quiz from "./pages/Quiz.jsx";
 import Splash from "./pages/Splash.jsx";
 import Explorer from "./components/Explorer.jsx";
 import OSTaskbar from "./components/OSTaskbar.jsx";
@@ -36,6 +37,11 @@ function App() {
     // Clean up pixel grid
     setTimeout(() => setPixelActive(false), 1500);
   };
+
+  // The quiz is a plain, un-themed page: it renders standalone, outside the
+  // OS chrome (no splash, taskbar or status bar) so none of the site styling
+  // or the fixed .main-content viewport applies to it.
+  if (location.pathname === "/quiz") return <Quiz />;
 
   // Theme the whole app by mounted drive: blue on C:\, coral on D:\
   const driveClass = location.pathname.startsWith("/dev")

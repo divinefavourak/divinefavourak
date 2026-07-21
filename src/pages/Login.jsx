@@ -1,15 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NBWindow from "../components/NBWindow.jsx";
 import FadeIn from "../components/FadeIn.jsx";
 import { useExamLoginOpen } from "../utils/examAccess.js";
+import { QUIZ_USER_KEY } from "./Quiz.jsx";
 
-const EXAM_FORM_URL = "https://bit.ly/NigeriaGenKnow";
 const DEFAULT_PASSWORD = "Exam123";
 
 function Login() {
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const loginOpen = useExamLoginOpen();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,11 +19,19 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const username = formData.username.trim();
+
+    if (!username) {
+      setError("Enter your name.");
+      return;
+    }
     if (formData.password !== DEFAULT_PASSWORD) {
       setError("Incorrect password.");
       return;
     }
-    window.location.href = EXAM_FORM_URL;
+
+    sessionStorage.setItem(QUIZ_USER_KEY, username);
+    navigate("/quiz");
   };
 
   if (!loginOpen) {
