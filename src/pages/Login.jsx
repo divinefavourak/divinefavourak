@@ -4,9 +4,11 @@ import FadeIn from "../components/FadeIn.jsx";
 import { useExamLoginOpen } from "../utils/examAccess.js";
 
 const EXAM_FORM_URL = "https://bit.ly/NigeriaGenKnow";
+const DEFAULT_PASSWORD = "Exam123";
 
 function Login() {
-  const [formData, setFormData] = useState({ name: "", email: "" });
+  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
   const loginOpen = useExamLoginOpen();
 
   const handleChange = (e) => {
@@ -15,6 +17,10 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (formData.password !== DEFAULT_PASSWORD) {
+      setError("Incorrect password.");
+      return;
+    }
     window.location.href = EXAM_FORM_URL;
   };
 
@@ -36,34 +42,40 @@ function Login() {
         <FadeIn delay={100}>
           <form onSubmit={handleSubmit} noValidate style={{ maxWidth: "420px", margin: "0 auto" }}>
             <div className="nb-form-group">
-              <label htmlFor="login-name" className="nb-label">// Full Name</label>
+              <label htmlFor="login-username" className="nb-label">// Username</label>
               <input
-                id="login-name"
+                id="login-username"
                 type="text"
-                name="name"
-                value={formData.name}
+                name="username"
+                value={formData.username}
                 onChange={handleChange}
                 className="nb-input"
-                placeholder="Jane Doe"
+                placeholder="Your name"
                 required
-                autoComplete="name"
+                autoComplete="username"
               />
             </div>
 
             <div className="nb-form-group">
-              <label htmlFor="login-email" className="nb-label">// Email</label>
+              <label htmlFor="login-password" className="nb-label">// Password</label>
               <input
-                id="login-email"
-                type="email"
-                name="email"
-                value={formData.email}
+                id="login-password"
+                type="password"
+                name="password"
+                value={formData.password}
                 onChange={handleChange}
                 className="nb-input"
-                placeholder="user@domain.com"
+                placeholder="••••••••"
                 required
-                autoComplete="email"
+                autoComplete="current-password"
               />
             </div>
+
+            {error && (
+              <div className="nb-form-error" role="alert">
+                ✗ {error}
+              </div>
+            )}
 
             <button
               type="submit"
