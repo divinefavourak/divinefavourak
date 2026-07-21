@@ -551,10 +551,11 @@ section:last-child { border-bottom: none; }
   color: inherit !important;
 }
 
-.nb-drive-blue  { background: var(--blue);  color: var(--black); }
-.nb-drive-coral { background: var(--coral); color: var(--white); }
-.nb-drive-lime  { background: var(--lime);  color: var(--black); }
-.nb-drive-pink  { background: var(--pink);  color: var(--white); }
+.nb-drive-blue   { background: var(--blue);   color: var(--black); }
+.nb-drive-coral  { background: var(--coral);  color: var(--white); }
+.nb-drive-lime   { background: var(--lime);   color: var(--black); }
+.nb-drive-pink   { background: var(--pink);   color: var(--white); }
+.nb-drive-yellow { background: var(--yellow); color: var(--black); }
 
 .nb-drive-icon-glyph { font-size: 2.2rem; line-height: 1; }
 .nb-drive-icon-label {

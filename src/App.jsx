@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 import Desktop from "./pages/Desktop.jsx";
 import Contact from "./pages/Contact.jsx";
+import Login from "./pages/Login.jsx";
 import Splash from "./pages/Splash.jsx";
 import Explorer from "./components/Explorer.jsx";
 import OSTaskbar from "./components/OSTaskbar.jsx";
@@ -71,6 +72,7 @@ function App() {
             <Route path="/dev/:nodeId?" element={<Explorer driveKey="dev" />} />
             <Route path="/leadership/:nodeId?" element={<Explorer driveKey="leadership" />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
