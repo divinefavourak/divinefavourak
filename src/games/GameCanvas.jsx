@@ -17,12 +17,24 @@ export default function GameCanvas({ game }) {
   const canvasRef = useRef(null);
   const [status, setStatus] = useState("idle"); // idle | loading | playing | error
 
+  // The effect is keyed on this counter, NOT on `status`.
+  //
+  // Keying it on status is the obvious-looking version and it's
+  // broken: the effect itself sets status to "playing", which
+  // changes a dependency, so React tears the effect down and the
+  // cleanup destroys the engine in the same tick it was created.
+  // The game starts and dies instantly. A counter that only changes
+  // when the visitor presses Play keeps the effect stable for the
+  // whole life of a run.
+  const [runId, setRunId] = useState(0);
+
   const start = useCallback(() => {
-    setStatus((s) => (s === "idle" || s === "error" ? "loading" : s));
+    setStatus("loading");
+    setRunId((n) => n + 1);
   }, []);
 
   useEffect(() => {
-    if (status !== "loading") return;
+    if (runId === 0) return;
 
     // `cancelled` guards the async gap: React 18 StrictMode mounts,
     // unmounts and remounts effects in development, so this effect
@@ -57,7 +69,7 @@ export default function GameCanvas({ game }) {
       cancelled = true;
       instance?.destroy();
     };
-  }, [status, game]);
+  }, [runId, game]);
 
   const isRunning = status === "playing";
 
