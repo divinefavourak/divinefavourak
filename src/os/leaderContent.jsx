@@ -1,35 +1,27 @@
 import React from "react";
-import FadeIn from "../components/FadeIn.jsx";
+import FadeIn from "./components/FadeIn.jsx";
+import sharedRoles from "../data/experience.js";
 
 /* ============================================================
    D:\LEADER — file contents
    Each export renders inside the Explorer when its file is opened.
+
+   Roles come from src/data/experience.js, shared with the
+   redesigned site. This adapter maps the shared schema onto the
+   field names this drive's markup expects.
    ============================================================ */
 
-const roles = [
-  {
-    icon: "👑",
-    logo: "/logos/rccg.png",
-    logoAlt: "RCCG logo",
-    title: "Regional Teens President",
-    org: "Region 63 Junior Church — RCCG",
-    desc: "Regional Teens President of Region 63 Junior Church, The Redeemed Christian Church of God (RCCG). Responsible for the spiritual development, pastoral care, and welfare of teenagers across the region — organising events, overseeing regional activities, and mentoring teen leaders.",
-    badge: "CURRENT",
-    link: "https://rccg.org",
-    linkLabel: "RCCG.ORG →",
-  },
-  {
-    icon: "🏛️",
-    logo: "/logos/dtce.png",
-    logoAlt: "RCCG DTCE logo",
-    title: "National Teens Vice President",
-    org: "RCCG DTCE — Lagos Zone 5",
-    desc: "Serving under RCCG's Directorate of Teens and Children Education (DTCE) on the National Teens Board for Lagos Zone 5 — working alongside the president to oversee teen leadership programmes, drive zone-wide strategy, coordinate outreach initiatives, and ensure the growth and spiritual health of the teens department across the zone.",
-    badge: "CURRENT",
-    link: null,
-    linkLabel: null,
-  },
-];
+const roles = sharedRoles.map((r) => ({
+  icon: r.kind === "Student leadership" ? "📣" : "👑",
+  logo: r.logo,
+  logoAlt: r.logoAlt,
+  title: r.title,
+  org: r.org,
+  desc: r.description,
+  badge: r.current ? "CURRENT" : "PAST",
+  link: r.link,
+  linkLabel: r.link ? new URL(r.link).hostname.replace(/^www\./, "").toUpperCase() + " →" : null,
+}));
 
 export const leaderRoleCount = roles.length;
 
@@ -50,12 +42,17 @@ export function LeaderProfile() {
           <h2>Divine-favour Akanbi</h2>
 
           <p className="nb-hero-role" style={{ borderLeftColor: 'var(--coral)', marginBottom: '1rem' }}>
-            Youth Leader &amp; Church President
+            Student Leader &amp; Youth Pastor
           </p>
 
+          {/* Rendered from shared data so a new role appears here
+              automatically instead of needing a second edit. */}
           <div className="nb-role-pills">
-            <span className="nb-role-pill">👑 Regional Teens President — R63, RCCG</span>
-            <span className="nb-role-pill">🏛️ National Teens VP — RCCG DTCE, Lagos Zone 5</span>
+            {roles.map((r) => (
+              <span className="nb-role-pill" key={r.title}>
+                {r.icon} {r.title} — {r.org}
+              </span>
+            ))}
           </div>
 
           <div className="nb-leader-logos" aria-label="Affiliated organisations">

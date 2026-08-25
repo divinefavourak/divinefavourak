@@ -1,92 +1,116 @@
-import React, { useEffect, useState } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
-import Desktop from "./pages/Desktop.jsx";
+import Nav from "./components/layout/Nav.jsx";
+import Footer from "./components/layout/Footer.jsx";
+import SkipToContent from "./components/layout/SkipToContent.jsx";
+import ScrollLine from "./components/motion/ScrollLine.jsx";
+
+import Home from "./pages/Home.jsx";
+import Work from "./pages/Work.jsx";
+import CaseStudy from "./pages/CaseStudy.jsx";
+import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
-import Login from "./pages/Login.jsx";
-import Quiz from "./pages/Quiz.jsx";
-import Splash from "./pages/Splash.jsx";
-import Explorer from "./components/Explorer.jsx";
-import OSTaskbar from "./components/OSTaskbar.jsx";
-import OSStatusBar from "./components/OSStatusBar.jsx";
-import SkipToContent from "./components/SkipToContent.jsx";
-import PixelTransition from "./components/PixelTransition.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
-/** Reset the scrollable panes when navigating between "directories". */
-function RouteScrollReset() {
+/**
+ * The previous portfolio, preserved as an easter egg. Lazy so that
+ * neither its components nor its 1,700-line legacy stylesheet reach
+ * the main bundle.
+ */
+const OsShell = lazy(() => import("./os/OsShell.jsx"));
+
+/** Restore the top of the page on navigation, as a browser would. */
+function ScrollToTop() {
   const { pathname } = useLocation();
+  const reduced = useReducedMotion();
+
   useEffect(() => {
-    document.getElementById("main-content")?.scrollTo(0, 0);
-    document.querySelector(".nb-explorer-main")?.scrollTo(0, 0);
-  }, [pathname]);
+    window.scrollTo({ top: 0, behavior: reduced ? "auto" : "instant" });
+  }, [pathname, reduced]);
+
   return null;
 }
 
-function App() {
-  const [splashDone, setSplashDone] = useState(false);
-  const [mainVisible, setMainVisible] = useState(false);
-  const [pixelActive, setPixelActive] = useState(false);
+/** The redesigned site: masthead, page, footer. */
+function SiteLayout({ children }) {
   const location = useLocation();
-
-  const handleEnter = () => {
-    setPixelActive(true);
-    // Hide splash once pixels cover screen
-    setTimeout(() => setSplashDone(true), 450);
-    // Reveal main site
-    setTimeout(() => setMainVisible(true), 550);
-    // Clean up pixel grid
-    setTimeout(() => setPixelActive(false), 1500);
-  };
-
-  // The quiz is a plain, un-themed page: it renders standalone, outside the
-  // OS chrome (no splash, taskbar or status bar) so none of the site styling
-  // or the fixed .main-content viewport applies to it.
-  if (location.pathname === "/quiz") return <Quiz />;
-
-  // Theme the whole app by mounted drive: blue on C:\, coral on D:\
-  const driveClass = location.pathname.startsWith("/dev")
-    ? "os-drive-dev"
-    : location.pathname.startsWith("/leadership")
-      ? "os-drive-leader"
-      : "os-drive-desktop";
+  const reduced = useReducedMotion();
 
   return (
     <>
-      {!splashDone && <Splash onEnter={handleEnter} />}
-      <PixelTransition active={pixelActive} />
-      <RouteScrollReset />
+      <SkipToContent />
+      <ScrollLine />
+      <Nav />
 
-      <div
-        className={driveClass}
-        style={{
-          opacity: mainVisible ? 1 : 0,
-          transition: 'opacity 0.6s ease',
-          visibility: splashDone ? 'visible' : 'hidden',
-        }}
-      >
-        <SkipToContent />
-        <OSTaskbar />
-
-        <div
-          id="main-content"
-          className="main-content"
-          itemScope
-          itemType="https://schema.org/Person"
-        >
-          <Routes>
-            <Route path="/" element={<Desktop />} />
-            <Route path="/dev/:nodeId?" element={<Explorer driveKey="dev" />} />
-            <Route path="/leadership/:nodeId?" element={<Explorer driveKey="leadership" />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </div>
-
-        <OSStatusBar />
+      <div id="main-content" tabIndex={-1}>
+        {/* mode="wait" lets the outgoing page finish before the
+            incoming one starts, so the two never overlap mid-fade. */}
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.main
+            key={location.pathname}
+            initial={reduced ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={reduced ? undefined : { opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+          >
+            {children}
+          </motion.main>
+        </AnimatePresence>
       </div>
+
+      <Footer />
     </>
   );
 }
 
-export default App;
+export default function App() {
+  const location = useLocation();
+
+  // The OS shell renders its own full-screen chrome — taskbar,
+  // status bar, splash — so it deliberately bypasses SiteLayout
+  // rather than nesting inside it.
+  //
+  // Matched on the segment boundary, not the prefix: startsWith("/os")
+  // is also true for "/oscar", which would take this branch and then
+  // match no inner route, rendering a blank page with no nav, footer
+  // or 404.
+  const isOsRoute =
+    location.pathname === "/os" || location.pathname.startsWith("/os/");
+
+  if (isOsRoute) {
+    return (
+      <Suspense fallback={<div className="min-h-screen bg-paper" />}>
+        <Routes>
+          <Route path="/os/*" element={<OsShell />} />
+        </Routes>
+      </Suspense>
+    );
+  }
+
+  return (
+    <>
+      <ScrollToTop />
+      <SiteLayout>
+        <Routes location={location}>
+          <Route path="/" element={<Home />} />
+          <Route path="/work" element={<Work />} />
+          <Route path="/work/:slug" element={<CaseStudy />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+
+          {/* The old drive URLs are in the published sitemap, so
+              they redirect rather than 404. */}
+          <Route path="/dev/*" element={<Navigate to="/os/dev" replace />} />
+          <Route
+            path="/leadership/*"
+            element={<Navigate to="/os/leadership" replace />}
+          />
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </SiteLayout>
+    </>
+  );
+}

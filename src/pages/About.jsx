@@ -1,127 +1,97 @@
-import React from "react";
-import FadeIn from "../components/FadeIn.jsx";
-import TechStack from "../components/TechStack.jsx";
+import Container from "../components/layout/Container.jsx";
+import Reveal from "../components/motion/Reveal.jsx";
+import Stagger from "../components/motion/Stagger.jsx";
+import StackGroup from "../components/misc/StackGroup.jsx";
+import RoleCard from "../components/misc/RoleCard.jsx";
+import PortraitCard from "../components/misc/PortraitCard.jsx";
+import profile from "../data/profile.js";
+import stackGroups from "../data/stack.js";
+import roles from "../data/experience.js";
 
-function About() {
-  const techStack = [
-    "JavaScript", "TypeScript", "Python", "C", "HTML5/CSS3",
-    "React", "React Native", "Node.js", "TailwindCSS", "Three.js",
-    "Expo", "Vite", "Git/GitHub", "Google Cloud", "Vercel"
-  ];
-
+export default function About() {
   return (
-    <div className="container" style={{ paddingBottom: "3rem" }}>
-      <div className="terminal-window">
-        <h2 style={{ textAlign: "center", borderBottom: "1px solid var(--accent-gray)", paddingBottom: "1rem", marginBottom: "2rem" }}>
-          &gt; System_Information
-        </h2>
+    <Container className="pt-36 pb-(--spacing-section) sm:pt-44">
+      <Reveal>
+        <p className="label">About</p>
+        <h1 className="mt-4 text-[clamp(2.5rem,7vw,4.5rem)]">
+          {profile.fullName}
+        </h1>
+      </Reveal>
 
-        <div className="specs-grid">
-          {/* Left Column: Stats */}
-          <FadeIn delay={100}>
-            <div className="spec-box">
-              <h3 style={{ color: "var(--dim-color)", marginBottom: "1rem", borderBottom: "1px dashed var(--accent-gray)", paddingBottom: "0.5rem" }}>// User_Stats</h3>
+      <Reveal className="mt-14 grid gap-10 border-t border-rule pt-10 lg:grid-cols-12 lg:gap-12">
+        <div className="lg:col-span-7">
+          {profile.intro.map((para) => (
+            <p
+              key={para}
+              className="mb-6 max-w-prose text-base leading-relaxed last:mb-0"
+            >
+              {para}
+            </p>
+          ))}
 
-              <div className="spec-row">
-                <span style={{ color: "var(--dim-color)" }}>Name:</span>
-                <strong>Divine-favour</strong>
-              </div>
-              <div className="spec-row">
-                <span style={{ color: "var(--dim-color)" }}>Role:</span>
-                <strong>Frontend Dev</strong>
-              </div>
-              <div className="spec-row">
-                <span style={{ color: "var(--dim-color)" }}>Level:</span>
-                <strong>200L Student</strong>
-              </div>
-              <div className="spec-row">
-                <span style={{ color: "var(--dim-color)" }}>Loc:</span>
-                <strong>Lagos, NG</strong>
-              </div>
-              <div className="spec-row">
-                <span style={{ color: "var(--dim-color)" }}>Status:</span>
-                <strong style={{ color: "var(--primary-color)" }}>Online</strong>
-              </div>
+          <dl className="mt-10 grid grid-cols-2 gap-6 border-t border-rule pt-8">
+            <div>
+              <dt className="label">Studying</dt>
+              <dd className="mt-1.5 text-sm">
+                {profile.education.programme}
+                <br />
+                <span className="text-muted">{profile.education.school}</span>
+              </dd>
             </div>
-          </FadeIn>
-
-          {/* Right Column: Bio */}
-          <FadeIn delay={200}>
-            <div className="spec-box">
-              <h3 style={{ color: "var(--dim-color)", marginBottom: "1rem", borderBottom: "1px dashed var(--accent-gray)", paddingBottom: "0.5rem" }}>// Execute_Bio.exe</h3>
-
-              <p style={{ marginBottom: "1rem", lineHeight: "1.8", color: "var(--primary-color)" }}>
-                &gt; <strong>Identity Confirmed:</strong> Divine-favour Akanbi Solomon.
-              </p>
-              <p style={{ marginBottom: "1rem", color: "#ccc" }}>
-                I am a 200-level Computer Science student at the University of Lagos. I breathe code, vibe with clean UI, and find joy in making things work and look good.
-              </p>
-              <p style={{ marginBottom: "1rem", color: "#ccc" }}>
-                I keep it real — <strong>no fluff, no filters, just growth and grind.</strong> My goal is to bridge the gap between rough ideas and polished digital realities.
-              </p>
+            <div>
+              <dt className="label">Based in</dt>
+              <dd className="mt-1.5 text-sm">
+                {profile.location}
+                <br />
+                <span className="text-muted">{profile.timezone}</span>
+              </dd>
             </div>
-          </FadeIn>
+          </dl>
         </div>
 
-        {/* Tech Stack */}
-        <FadeIn delay={300}>
-          <div className="spec-box" style={{ marginTop: "2rem" }}>
-            <h3 style={{ color: "var(--dim-color)", marginBottom: "1rem", borderBottom: "1px dashed var(--accent-gray)", paddingBottom: "0.5rem" }}>// Installed_Dependencies</h3>
-            <TechStack />
-          </div>
-        </FadeIn>
-
-        {/* Vertical Timeline */}
-        <FadeIn delay={400}>
-          <div className="spec-box" style={{ marginTop: "2rem" }}>
-            <h3 style={{ color: "var(--dim-color)", marginBottom: "1rem", borderBottom: "1px dashed var(--accent-gray)", paddingBottom: "0.5rem" }}>// System_Logs</h3>
-            <div className="timeline-container">
-              <div className="timeline-line"></div>
-
-              <div className="timeline-item">
-                <div className="timeline-dot"></div>
-                <div className="timeline-date">2021</div>
-                <div className="timeline-title">Started Programming Journey</div>
-                <div className="timeline-desc">First line of code written. Explored HTML & CSS fundamentals.</div>
-              </div>
-
-              <div className="timeline-item">
-                <div className="timeline-dot"></div>
-                <div className="timeline-date">2022</div>
-                <div className="timeline-title">Deep Dive into JavaScript</div>
-                <div className="timeline-desc">Mastered ES6+, DOM manipulation, and built first interactive projects.</div>
-              </div>
-
-              <div className="timeline-item">
-                <div className="timeline-dot"></div>
-                <div className="timeline-date">2024 - Present</div>
-                <div className="timeline-title">CS Degree @ UNILAG</div>
-                <div className="timeline-desc">Started formal Computer Science education. Exploring algorithms and data structures.</div>
-              </div>
-
-              <div className="timeline-item">
-                <div className="timeline-dot"></div>
-                <div className="timeline-date">2025</div>
-                <div className="timeline-title">Full Stack Development</div>
-                <div className="timeline-desc">Building complex apps with React, Node.js, Django, and Modern UI frameworks.</div>
-              </div>
-            </div>
-          </div>
-        </FadeIn>
-
-        {/* Fixed Button at Bottom */}
-        <div style={{ textAlign: "center", marginTop: "3rem", display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-          <a href="#projects" className="btn">
-            Run_Diagnostics &gt;
-          </a>
-          <a href="/resume.pdf" download className="btn btn-secondary">
-            &lt; Download_Resume &gt;
+        <div className="lg:col-span-5">
+          <PortraitCard
+            src={profile.portraitUrl}
+            alt={`${profile.fullName} — ${profile.title}`}
+            badgeTitle={profile.location.split(",")[0]}
+            badgeSub={profile.location.split(",")[1]?.trim()}
+          />
+          <a
+            href={profile.resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline mt-12 inline-block text-sm"
+          >
+            Download CV ↓
           </a>
         </div>
+      </Reveal>
 
-      </div>
-    </div>
+      <section aria-labelledby="about-stack" className="mt-24">
+        <Reveal>
+          <h2 id="about-stack" className="label border-t border-rule pt-6">
+            Stack
+          </h2>
+        </Reveal>
+        <Stagger className="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {stackGroups.map((group) => (
+            <StackGroup key={group.name} group={group} />
+          ))}
+        </Stagger>
+      </section>
+
+      <section aria-labelledby="about-roles" className="mt-24">
+        <Reveal>
+          <h2 id="about-roles" className="label border-t border-rule pt-6">
+            Leadership
+          </h2>
+        </Reveal>
+        <Stagger as="ul" className="mt-10 border-t border-rule">
+          {roles.map((role) => (
+            <RoleCard key={role.title} role={role} />
+          ))}
+        </Stagger>
+      </section>
+    </Container>
   );
 }
-
-export default About;

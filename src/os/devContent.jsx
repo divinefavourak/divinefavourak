@@ -1,90 +1,31 @@
 import React from "react";
-import FadeIn from "../components/FadeIn.jsx";
-import {
-  SiJavascript, SiTypescript, SiPython, SiC,
-  SiReact, SiNodedotjs, SiExpress,
-  SiHtml5, SiCss3, SiTailwindcss, SiThreedotjs,
-  SiVite, SiExpo, SiGithub,
-  SiMongodb, SiPostgresql, SiGooglecloud, SiVercel,
-} from "react-icons/si";
+import FadeIn from "./components/FadeIn.jsx";
+import profile from "../data/profile.js";
+import { projects } from "../data/projects.js";
+import { stackItems } from "../data/stack.js";
+import timelineData from "../data/timeline.js";
 
 /* ============================================================
    C:\DEV — file contents
    Each export renders inside the Explorer when its file is opened.
+
+   The data itself lives in src/data/ and is shared with the
+   redesigned site, so adding a project surfaces it in both places.
+   These adapters map the shared schema onto the field names this
+   drive's markup was originally written against.
    ============================================================ */
 
-const projectData = [
-  {
-    title: "Recipe Book",
-    desc: "A search engine for recipes built with vanilla JS and REST APIs. Find meals instantly by name or ingredient.",
-    tech: ["JavaScript", "API", "HTML/CSS"],
-    link: "https://divinefavourak.github.io/recipe-book/",
-    github: "https://github.com/divinefavourak/recipe-book",
-    status: "stable",
-  },
-  {
-    title: "EduGuard AI",
-    desc: "Academic fraud detection platform for modern institutions. Built with React and integrated AI analysis.",
-    tech: ["React", "AI", "Vite"],
-    link: "https://edu-guard-ai.vercel.app/",
-    github: "https://github.com/divinefavourak/edu-guard-ai",
-    status: "beta",
-  },
-  {
-    title: "WhatsApp Bot",
-    desc: "Multi-session bot with Gemini 2.5 AI integration, MongoDB auth, admin dashboard, and crash-resilient architecture.",
-    tech: ["Node.js", "Express", "MongoDB", "Gemini"],
-    link: "https://jesutobi-bot.onrender.com/",
-    github: null,
-    status: "online",
-  },
-  {
-    title: "RCCG R63 Teens",
-    desc: "Full-stack event management system with registration, ticketing, Paystack payments, QR check-ins, and approval workflows.",
-    tech: ["Django", "React", "PostgreSQL", "Paystack"],
-    link: "https://rccg-r63-juniorchurch.vercel.app/",
-    github: null,
-    status: "production",
-  },
-  {
-    title: "Portfolio v3",
-    desc: "The system you are currently browsing. Directory-OS navigation with two mounted drives — one per life.",
-    tech: ["React", "Vite", "React Router"],
-    link: "#",
-    github: null,
-    status: "live",
-  },
-];
+const projectData = projects.map((p) => ({
+  title: p.title,
+  desc: p.summary,
+  tech: p.stack,
+  link: p.links.live,
+  github: p.links.repo,
+  status: p.status,
+}));
 
-const techStack = [
-  { name: "JavaScript",   Icon: SiJavascript },
-  { name: "TypeScript",   Icon: SiTypescript },
-  { name: "Python",       Icon: SiPython },
-  { name: "C",            Icon: SiC },
-  { name: "React",        Icon: SiReact },
-  { name: "React Native", Icon: SiReact },
-  { name: "Node.js",      Icon: SiNodedotjs },
-  { name: "Express",      Icon: SiExpress },
-  { name: "HTML5",        Icon: SiHtml5 },
-  { name: "CSS3",         Icon: SiCss3 },
-  { name: "TailwindCSS",  Icon: SiTailwindcss },
-  { name: "Three.js",     Icon: SiThreedotjs },
-  { name: "Vite",         Icon: SiVite },
-  { name: "Expo",         Icon: SiExpo },
-  { name: "Git / GitHub", Icon: SiGithub },
-  { name: "MongoDB",      Icon: SiMongodb },
-  { name: "PostgreSQL",   Icon: SiPostgresql },
-  { name: "Google Cloud", Icon: SiGooglecloud },
-  { name: "Vercel",       Icon: SiVercel },
-];
-
-const timeline = [
-  { date: "2021", title: "Started Programming", desc: "First lines of HTML & CSS. Fell in love with building things." },
-  { date: "2022", title: "Deep Dive — JavaScript", desc: "Mastered ES6+, DOM manipulation. Built first interactive projects." },
-  { date: "2023", title: "React & Full Stack", desc: "Picked up React, Node.js, and started building real apps." },
-  { date: "2024–Now", title: "CS @ UNILAG", desc: "Computer Science degree. Exploring algorithms, data structures & more." },
-  { date: "2025", title: "Freelance + Projects", desc: "Shipped production apps, integrated AI, led client projects." },
-];
+const techStack = stackItems;
+const timeline = timelineData;
 
 export const devProjectCount = projectData.length;
 
@@ -110,15 +51,15 @@ export function DevAbout() {
             </div>
             <div className="nb-spec-row">
               <span>Role</span>
-              <strong>Frontend Dev &amp; UI Designer</strong>
+              <strong>{profile.title}</strong>
             </div>
             <div className="nb-spec-row">
               <span>Level</span>
-              <strong>200L CS Student — UNILAG</strong>
+              <strong>CS Student — {profile.education.shortName}</strong>
             </div>
             <div className="nb-spec-row">
               <span>Loc</span>
-              <strong>Lagos, Nigeria</strong>
+              <strong>{profile.location}</strong>
             </div>
             <div className="nb-spec-row">
               <span>Status</span>

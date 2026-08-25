@@ -1,0 +1,400 @@
+@import "tailwindcss";
+/* Display face: only the weights actually used, since Bricolage
+   ships seven and each is a separate download. */
+@import "@fontsource/bricolage-grotesque/500.css";
+@import "@fontsource/bricolage-grotesque/600.css";
+@import "@fontsource/bricolage-grotesque/700.css";
+
+@import "@fontsource/schibsted-grotesk/400.css";
+@import "@fontsource/schibsted-grotesk/500.css";
+@import "@fontsource/schibsted-grotesk/600.css";
+
+@import "@fontsource/dm-mono/400.css";
+@import "@fontsource/dm-mono/500.css";
+
+/* ============================================================
+   DESIGN TOKENS
+   ------------------------------------------------------------
+   Tailwind v4 reads @theme and generates utilities from it, so
+   --color-ink becomes text-ink/bg-ink/border-ink, --font-display
+   becomes font-display, and so on. This block IS the design
+   system — there is no tailwind.config.js.
+   ============================================================ */
+@theme {
+  /* Dark-first, and warm rather than neutral: every grey carries a
+     little red/yellow, which is what keeps a near-black page from
+     reading as cold or clinical. One amber accent; four greys doing
+     all the structural work. */
+  --color-paper: #080706;
+  --color-raised: #12100D;
+  /* A warm cream rather than white — this is most of where the
+     "sandy" quality comes from. Pure #FFF against a warm dark reads
+     blue-ish by contrast and makes the whole page feel colder. */
+  --color-ink: #EFE9DE;
+  --color-muted: #A2988A;
+  --color-faint: #6E6557;
+  --color-rule: #2A251F;
+  --color-accent: #E2B279;
+
+  --font-display: "Bricolage Grotesque", "Archivo", system-ui, sans-serif;
+  --font-sans: "Schibsted Grotesk", system-ui, -apple-system, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* One easing curve everywhere. Shared with the motion layer in
+     src/components/motion/motion.js — keep the two in sync. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Vertical rhythm between major page sections. Applied as both
+     top and bottom padding, so adjacent sections contribute twice
+     this value between their content — hence the modest ceiling. */
+  --spacing-section: clamp(3.5rem, 7vw, 6rem);
+}
+
+/* Light theme.
+   The design is authored dark — that's the default in @theme above,
+   so a visitor who never touches anything gets the intended look
+   regardless of their OS setting. Light is the opt-in override:
+   the same token ROLES with inverted values, which is why no
+   component needs a single `dark:` variant.
+
+   `.light` is set by ThemeToggle. The media query covers someone
+   whose OS prefers light and who hasn't chosen yet — `.dark` on the
+   root opts them back out. */
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) {
+    --color-paper: #F7F3EA;
+    --color-raised: #FFFDF8;
+    --color-ink: #17140E;
+    --color-muted: #6E6557;
+    --color-faint: #A2988A;
+    --color-rule: #E4DCCC;
+    --color-accent: #A9701C;
+  }
+}
+
+:root.light {
+  --color-paper: #FAF9F6;
+  --color-raised: #FFFFFF;
+  --color-ink: #16140F;
+  --color-muted: #6A645C;
+  --color-faint: #9A948B;
+  --color-rule: #E2DED6;
+  /* Darkened from the dark theme's amber to hold contrast against
+     a light background — the same hue would fail WCAG AA on paper. */
+  --color-accent: #A9701C;
+}
+
+/* ============================================================
+   BASE LAYER
+   ============================================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-paper);
+    /* Two very low-opacity warm pools, fixed so they don't scroll.
+       They keep a flat near-black from looking like a switched-off
+       screen — the page reads as lit rather than empty. Subtle by
+       design: at 5% these should never be consciously noticed. */
+    background-image:
+      radial-gradient(
+        ellipse 50% 40% at 38% -5%,
+        color-mix(in oklab, var(--color-accent) 2%, transparent),
+        transparent 75%
+      ),
+      radial-gradient(
+        ellipse 70% 55% at 5% 105%,
+        color-mix(in oklab, var(--color-accent) 1.5%, transparent),
+        transparent 75%
+      );
+    background-attachment: fixed;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv05" 1, "ss01" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Film grain.
+     ------------------------------------------------------------
+     This is the "sandy" texture — colour alone reads as a flat
+     gradient, and what makes these pages feel like a printed
+     surface is a fine noise sitting over everything.
+
+     Generated with an SVG feTurbulence data URI rather than a PNG:
+     no asset to ship, no extra request, and it tiles perfectly
+     because stitchTiles handles the seams.
+
+     Fixed, so the grain stays put while the page scrolls (grain
+     that scrolls with content reads as dirt on the page rather
+     than on the lens). pointer-events: none is essential — this
+     covers the entire viewport and would otherwise swallow every
+     click on the site. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.055;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
+  /* On a light ground the same white-ish noise is invisible, so it
+     is blended multiplicatively to darken instead of lighten. */
+  :root.light body::after,
+  :root:not(.dark) body::after {
+    mix-blend-mode: multiply;
+    opacity: 0.045;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) body::after {
+      mix-blend-mode: normal;
+      opacity: 0.055;
+    }
+  }
+
+  /* Headings are the load-bearing element of a typography-led
+     layout, so the display face and tight leading are defaults
+     rather than something each component re-declares. */
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    /* A serif display face carries large sizes at 400; a grotesque
+       looks anaemic there and needs real weight behind it. Tracking
+       goes tighter for the same reason — grotesque counters open up
+       as the size climbs, and -0.035em pulls the word back together
+       into a single shape. */
+    font-weight: 600;
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* A visible, high-contrast focus ring. The default browser ring
+     disappears against --color-paper. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+}
+
+/* ============================================================
+   COMPONENT PRIMITIVES
+   Only for patterns repeated across many components, where a
+   utility string would be copied verbatim a dozen times.
+   ============================================================ */
+@layer components {
+  /* The metadata voice: every label, eyebrow and column header. */
+  .label {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  /* Wide-tracked monospace, for the hero's coordinate block and
+     anything else that should read as machine output rather than
+     prose. The tracking is what does the work here — at 0.2em the
+     line stops looking like text and starts looking like a readout. */
+  .mono-meta {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    line-height: 1.9;
+    color: var(--color-faint);
+  }
+
+  /* Section eyebrow: [ SELECTED WORK ]. The brackets are generated
+     rather than typed, so the markup stays clean and they can't be
+     selected or read aloud as stray punctuation. */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
+
+  .eyebrow::before {
+    content: "[ ";
+  }
+
+  .eyebrow::after {
+    content: " ]";
+  }
+
+  /* Pill buttons. `filled` is the primary action, `ghost` the rest. */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    padding: 0.8rem 1.75rem;
+    font-size: 0.875rem;
+    line-height: 1;
+    white-space: nowrap;
+    border: 1px solid var(--color-rule);
+    color: var(--color-ink);
+    transition:
+      background-color 0.35s var(--ease-out-expo),
+      border-color 0.35s var(--ease-out-expo),
+      color 0.35s var(--ease-out-expo);
+  }
+
+  .pill:hover {
+    border-color: var(--color-ink);
+  }
+
+  .pill-filled {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    border-color: var(--color-ink);
+  }
+
+  .pill-filled:hover {
+    background: transparent;
+    color: var(--color-ink);
+  }
+
+  .pill-accent {
+    color: var(--color-accent);
+    border-color: color-mix(in oklab, var(--color-accent) 45%, transparent);
+  }
+
+  .pill-accent:hover {
+    border-color: var(--color-accent);
+    background: color-mix(in oklab, var(--color-accent) 12%, transparent);
+  }
+
+  /* The hero portrait, dissolved into the background.
+
+     Three things stacked: desaturate and lift contrast so the face
+     reads as tone rather than colour; a radial mask that fades every
+     edge to nothing so there's no seam where the photo stops; and
+     `screen` blending so the remaining dark pixels drop out into the
+     page instead of sitting on it as a grey rectangle.
+
+     mask-image is the load-bearing part — without it this is just a
+     faded photo, and the effect depends on having no visible edge. */
+  .portrait-dissolve {
+    filter: grayscale(1) contrast(1.25) brightness(0.92);
+    mix-blend-mode: screen;
+    -webkit-mask-image: radial-gradient(
+      ellipse 62% 62% at 52% 42%,
+      #000 8%,
+      rgba(0, 0, 0, 0.72) 42%,
+      rgba(0, 0, 0, 0.22) 68%,
+      transparent 82%
+    );
+    mask-image: radial-gradient(
+      ellipse 62% 62% at 52% 42%,
+      #000 8%,
+      rgba(0, 0, 0, 0.72) 42%,
+      rgba(0, 0, 0, 0.22) 68%,
+      transparent 82%
+    );
+  }
+
+  /* On a light background `screen` would erase the image entirely
+     (screening against white returns white), so the light theme
+     swaps to multiply and drops the brightness knock-down. */
+  :root.light .portrait-dissolve,
+  :root:not(.dark) .portrait-dissolve {
+    mix-blend-mode: multiply;
+    filter: grayscale(1) contrast(1.1);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) .portrait-dissolve {
+      mix-blend-mode: screen;
+      filter: grayscale(1) contrast(1.25) brightness(0.92);
+    }
+  }
+
+  /* Edge dissolve only — no filter, no blend mode.
+     The halftone canvas does its own tonal work and already paints
+     the page's own paper colour as its ground, so all it needs from
+     us is the soft edge that stops it reading as a pasted-on
+     rectangle. Applying .portrait-dissolve here instead would
+     grayscale and screen-blend a canvas that is already correct. */
+  .halftone-mask {
+    -webkit-mask-image: radial-gradient(
+      ellipse 64% 64% at 54% 44%,
+      #000 12%,
+      rgba(0, 0, 0, 0.78) 46%,
+      rgba(0, 0, 0, 0.25) 70%,
+      transparent 84%
+    );
+    mask-image: radial-gradient(
+      ellipse 64% 64% at 54% 44%,
+      #000 12%,
+      rgba(0, 0, 0, 0.78) 46%,
+      rgba(0, 0, 0, 0.25) 70%,
+      transparent 84%
+    );
+  }
+
+  /* Tabular figures keep the 01/02/03 row numbers from shifting
+     width as they count up. */
+  .numeral {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  /* Underline that draws in from the left on hover, used on every
+     inline link. Animates transform, not width, so it cannot
+     trigger layout. */
+  .link-underline {
+    position: relative;
+    display: inline-block;
+  }
+
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.1em;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease-out-expo);
+  }
+
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .link-underline::after {
+      transition-duration: 0.01ms;
+    }
+  }
+}
