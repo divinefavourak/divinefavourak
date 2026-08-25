@@ -68,7 +68,11 @@ export function projectPlate(project, index = 0) {
     .slice(0, 4)
     .map(
       (text, i) =>
-        `<text x="64" y="${640 + i * 82}" font-family="Georgia, serif" font-size="76" fill="${PALETTE.ink}">${escapeXml(text)}</text>`
+        // An SVG rendered inside an <img> cannot load webfonts, so
+        // this must be a system stack — it can't be Bricolage. A
+        // heavy, tightly-tracked grotesque is the closest match the
+        // system reliably provides.
+        `<text x="64" y="${640 + i * 82}" font-family="'Segoe UI', system-ui, sans-serif" font-weight="650" letter-spacing="-2" font-size="72" fill="${PALETTE.ink}">${escapeXml(text)}</text>`
     )
     .join('');
 

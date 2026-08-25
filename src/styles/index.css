@@ -1,7 +1,16 @@
 @import "tailwindcss";
-@import "@fontsource-variable/inter";
-@import "@fontsource/instrument-serif";
-@import "@fontsource/jetbrains-mono/400.css";
+/* Display face: only the weights actually used, since Bricolage
+   ships seven and each is a separate download. */
+@import "@fontsource/bricolage-grotesque/500.css";
+@import "@fontsource/bricolage-grotesque/600.css";
+@import "@fontsource/bricolage-grotesque/700.css";
+
+@import "@fontsource/schibsted-grotesk/400.css";
+@import "@fontsource/schibsted-grotesk/500.css";
+@import "@fontsource/schibsted-grotesk/600.css";
+
+@import "@fontsource/dm-mono/400.css";
+@import "@fontsource/dm-mono/500.css";
 
 /* ============================================================
    DESIGN TOKENS
@@ -27,9 +36,9 @@
   --color-rule: #2A251F;
   --color-accent: #E2B279;
 
-  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
-  --font-sans: "Inter Variable", Inter, system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-display: "Bricolage Grotesque", "Archivo", system-ui, sans-serif;
+  --font-sans: "Schibsted Grotesk", system-ui, -apple-system, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   /* One easing curve everywhere. Shared with the motion layer in
      src/components/motion/motion.js — keep the two in sync. */
@@ -162,9 +171,14 @@
      rather than something each component re-declares. */
   h1, h2, h3 {
     font-family: var(--font-display);
-    font-weight: 400;
-    line-height: 0.95;
-    letter-spacing: -0.02em;
+    /* A serif display face carries large sizes at 400; a grotesque
+       looks anaemic there and needs real weight behind it. Tracking
+       goes tighter for the same reason — grotesque counters open up
+       as the size climbs, and -0.035em pulls the word back together
+       into a single shape. */
+    font-weight: 600;
+    line-height: 0.94;
+    letter-spacing: -0.035em;
     text-wrap: balance;
   }
 
