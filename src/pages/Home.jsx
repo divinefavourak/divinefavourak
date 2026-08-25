@@ -19,7 +19,6 @@ import StackGroup from "../components/misc/StackGroup.jsx";
 import PortraitCard from "../components/misc/PortraitCard.jsx";
 import TiltWrap from "../components/misc/TiltWrap.jsx";
 import HalftoneReveal from "../components/reactbits/HalftoneReveal.jsx";
-import TiltedCard from "../components/reactbits/TiltedCard.jsx";
 
 import profile from "../data/profile.js";
 import { featuredProjects } from "../data/projects.js";
@@ -208,9 +207,14 @@ function Hero() {
         // element itself, or the rotation renders flat.
         className="pointer-events-none absolute inset-y-0 right-0 hidden w-[78%] select-none opacity-70 [perspective:1200px] md:block lg:w-[62%] lg:opacity-100"
       >
+        {/* Both hero effects live on this one image: TiltWrap tilts
+            it toward the cursor, HalftoneReveal screens it as a
+            halftone print and opens a sharp loupe under the pointer.
+            Tracking is read from the header, because the portrait is
+            pointer-events:none and can never be hovered directly. */}
         <TiltWrap
-          amplitude={7}
-          scaleOnHover={1.03}
+          amplitude={11}
+          scaleOnHover={1.05}
           surfaceSelector="[data-halftone-surface]"
         >
         {/* HalftoneReveal prints the portrait as a halftone screen
@@ -340,42 +344,6 @@ function Hero() {
             </a>
           </motion.div>
         </div>
-
-        {/* A tilted card floating in the hero. Uses lead.jpg rather
-            than the portrait behind it — two treatments of the same
-            photograph in one view would read as a mistake. Sits
-            below xl, where the hero has no spare width. */}
-        <motion.div
-          {...fade(0.85)}
-          className="pointer-events-none absolute bottom-8 right-8 hidden xl:block"
-        >
-          <div className="pointer-events-auto">
-            <TiltedCard
-              imageSrc="/lead.jpg"
-              altText={`${profile.name} in a leadership capacity`}
-              captionText="Beyond the code"
-              containerHeight="260px"
-              containerWidth="200px"
-              imageHeight="260px"
-              imageWidth="200px"
-              rotateAmplitude={12}
-              scaleOnHover={1.06}
-              showMobileWarning={false}
-              showTooltip
-              displayOverlayContent
-              overlayContent={
-                <div className="w-[200px] p-4">
-                  <p className="mono-meta !text-[0.5625rem] !leading-none !text-white/70">
-                    Also
-                  </p>
-                  <p className="mt-1.5 font-display text-lg leading-tight text-white">
-                    Student leader
-                  </p>
-                </div>
-              }
-            />
-          </div>
-        </motion.div>
       </Container>
     </header>
   );
