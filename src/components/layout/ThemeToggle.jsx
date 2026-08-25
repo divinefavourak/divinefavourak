@@ -1,52 +1,14 @@
-import { useEffect, useState } from "react";
-
-const STORAGE_KEY = "theme";
+import useTheme, { setTheme } from "../../lib/useTheme.js";
 
 /**
- * Resolve the theme to apply on first paint.
+ * Light/dark switch.
  *
- * Three states, not two: an explicit stored choice wins; otherwise
- * we follow the OS. Storage access is wrapped because it throws
- * outright in some privacy modes rather than returning null.
+ * State lives in src/lib/useTheme.js rather than here, because Nav
+ * mounts this component twice (desktop and mobile) and the two must
+ * agree.
  */
-function readStoredTheme() {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === "dark" || stored === "light") return stored;
-  } catch {
-    /* private mode, blocked site data — fall through to the OS */
-  }
-  return null;
-}
-
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window === "undefined") return "dark";
-    // The design is authored dark, so that's the default. Only a
-    // stored choice, or an explicit OS preference for light, moves
-    // a visitor off it.
-    return (
-      readStoredTheme() ??
-      (window.matchMedia("(prefers-color-scheme: light)").matches
-        ? "light"
-        : "dark")
-    );
-  });
-
-  useEffect(() => {
-    const root = document.documentElement;
-    // Both classes are set explicitly. The CSS guards its
-    // prefers-color-scheme block with :root:not(.light), so an
-    // explicit "light" has to be present to override a dark OS.
-    root.classList.toggle("dark", theme === "dark");
-    root.classList.toggle("light", theme === "light");
-    try {
-      localStorage.setItem(STORAGE_KEY, theme);
-    } catch {
-      /* not persisting is survivable; the toggle still works */
-    }
-  }, [theme]);
-
+  const theme = useTheme();
   const next = theme === "dark" ? "light" : "dark";
 
   return (
@@ -55,7 +17,7 @@ export default function ThemeToggle() {
       onClick={() => setTheme(next)}
       aria-label={`Switch to ${next} theme`}
       title={`Switch to ${next} theme`}
-      className="grid h-8 w-8 place-items-center text-muted transition-colors hover:text-ink"
+      className="grid h-10 w-10 place-items-center text-muted transition-colors hover:text-ink"
     >
       {/* Sun and moon are drawn inline rather than pulled from an
           icon set — two glyphs don't justify a dependency. */}

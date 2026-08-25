@@ -64,7 +64,11 @@ export default function SectionRail({ sections }) {
               <a
                 href={`#${section.id}`}
                 aria-current={isActive ? "true" : undefined}
-                className="group flex items-center justify-end gap-3"
+                // py-2 keeps the tap target usable. Below xl the label
+                // is display:none, so the anchor's only child is a 1px
+                // rule — leaving a 1px-tall hit area and a focus ring
+                // collapsed to the same strip.
+                className="group flex items-center justify-end gap-3 py-2"
               >
                 <span
                   className={

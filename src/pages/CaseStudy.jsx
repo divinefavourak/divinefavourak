@@ -25,7 +25,7 @@ export default function CaseStudy() {
   const { prev, next } = adjacentCaseStudies(slug);
 
   return (
-    <Container as="main" className="pt-36 pb-(--spacing-section) sm:pt-44">
+    <Container className="pt-36 pb-(--spacing-section) sm:pt-44">
       <Reveal>
         <Link to="/work" className="link-underline text-sm text-muted">
           ← Work

@@ -51,13 +51,17 @@ export default function GameCanvas({ game }) {
         ]);
         await ensureGameFonts();
 
-        if (cancelled || !canvasRef.current) return;
+        if (cancelled) return;
+        if (!canvasRef.current) {
+          // Mounted but no canvas: without resetting, status stays
+          // "loading" forever and the Play button is left disabled
+          // reading "Loading…" with no way to retry.
+          setStatus("error");
+          return;
+        }
 
         instance = createGame(canvasRef.current);
         setStatus("playing");
-        // Focus so the engine's keydown handlers (pause, name entry)
-        // receive keys without the visitor having to click first.
-        canvasRef.current.focus({ preventScroll: true });
       } catch (err) {
         if (cancelled) return;
         console.error(`[${game.slug}] failed to start:`, err);
@@ -72,6 +76,20 @@ export default function GameCanvas({ game }) {
   }, [runId, game]);
 
   const isRunning = status === "playing";
+
+  // Focus only once the canvas is actually focusable.
+  //
+  // Focusing straight after createGame() did nothing: React 18 does
+  // not flush the "playing" state synchronously inside an async
+  // continuation, so at that moment the canvas still carried
+  // tabIndex={-1} and visibility:hidden — and a hidden element
+  // cannot take focus. The engines bind their keydown handlers to
+  // the canvas, so Escape-to-pause and Jollof's name entry were dead
+  // until the visitor clicked it.
+  useEffect(() => {
+    if (!isRunning) return;
+    canvasRef.current?.focus({ preventScroll: true });
+  }, [isRunning]);
 
   return (
     <figure className="m-0">

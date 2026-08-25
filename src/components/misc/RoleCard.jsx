@@ -20,10 +20,16 @@ export default function RoleCard({ role }) {
         <div className="sm:col-span-9">
           <div className="flex flex-wrap items-center gap-3">
             {role.logo && (
+              // Intrinsic size so the browser reserves the box. With
+              // only h-7 w-auto the width was unknown until the file
+              // loaded, and the role title beside it in this
+              // flex-wrap row jumped sideways when it resolved.
               <img
                 src={role.logo}
                 alt={role.logoAlt ?? ""}
                 loading="lazy"
+                width="112"
+                height="28"
                 className="h-7 w-auto object-contain"
               />
             )}

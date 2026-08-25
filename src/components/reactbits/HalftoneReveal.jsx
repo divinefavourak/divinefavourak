@@ -223,6 +223,14 @@ const HalftoneReveal = ({
   const [webgl2, setWebgl2] = useState(null);
   useEffect(() => setWebgl2(supportsWebGL2()), []);
 
+  // A failed image load is the other way this renders nothing. OGL
+  // keeps its 1x1 placeholder, the shader samples a flat texture and
+  // the hero becomes an empty halftone field — and the <img>
+  // fallback below is unreachable once WebGL2 has been chosen. So
+  // treat a load failure the same as no WebGL2.
+  const [imageFailed, setImageFailed] = useState(false);
+  useEffect(() => setImageFailed(false), [src]);
+
   useEffect(() => {
     followRef.current = follow;
   }, [follow]);
@@ -287,6 +295,7 @@ const HalftoneReveal = ({
       texture.image = img;
       uniforms.uImageSize.value = [img.naturalWidth, img.naturalHeight];
     };
+    img.onerror = () => setImageFailed(true);
 
     const resize = () => {
       const w = container.clientWidth || 1;
@@ -360,7 +369,7 @@ const HalftoneReveal = ({
       uniformsRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [src, webgl2]);
+  }, [src, webgl2, imageFailed]);
 
   useEffect(() => {
     const u = uniformsRef.current;
@@ -397,7 +406,7 @@ const HalftoneReveal = ({
   // No WebGL2 (or still deciding): render the photograph plainly.
   // A missing hero image is a far worse outcome than a missing
   // effect.
-  if (webgl2 === false) {
+  if (webgl2 === false || imageFailed) {
     return (
       <img
         src={src}

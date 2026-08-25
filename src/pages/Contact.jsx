@@ -79,7 +79,7 @@ export default function Contact() {
   }
 
   return (
-    <Container as="main" className="pt-36 pb-(--spacing-section) sm:pt-44">
+    <Container className="pt-36 pb-(--spacing-section) sm:pt-44">
       <Reveal>
         <p className="label">Contact</p>
         <h1 className="mt-4 text-[clamp(2.5rem,7vw,4.5rem)]">Get in touch</h1>

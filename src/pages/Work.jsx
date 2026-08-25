@@ -11,7 +11,7 @@ import { projects } from "../data/projects.js";
  */
 export default function Work() {
   return (
-    <Container as="main" className="pt-36 pb-(--spacing-section) sm:pt-44">
+    <Container className="pt-36 pb-(--spacing-section) sm:pt-44">
       <Reveal>
         <p className="label">Index</p>
         <h1 className="mt-4 text-[clamp(2.5rem,7vw,4.5rem)]">Work</h1>

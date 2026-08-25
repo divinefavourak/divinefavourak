@@ -42,6 +42,23 @@ export default function Nav() {
   // over the page the visitor just asked for.
   useEffect(() => setMenuOpen(false), [pathname]);
 
+  // Close when the viewport reaches the desktop breakpoint.
+  //
+  // The overlay and the hamburger are both md:hidden. Widening the
+  // window with the menu open hid them both via CSS while menuOpen
+  // stayed true — so the scroll lock below never released and no
+  // control remained to close it. The page became unscrollable until
+  // a reload.
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mql = window.matchMedia("(min-width: 768px)");
+    const onChange = (e) => {
+      if (e.matches) setMenuOpen(false);
+    };
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
+
   // While the overlay is open, freeze the page behind it and let
   // Escape dismiss it.
   useEffect(() => {

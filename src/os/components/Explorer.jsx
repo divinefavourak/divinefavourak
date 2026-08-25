@@ -89,7 +89,9 @@ function Explorer({ driveKey }) {
             <span className="nb-control" aria-hidden="true">□</span>
             <button
               className="nb-control nb-control-btn"
-              onClick={() => navigate("/")}
+              // /os, not /: this control closes the window back to
+              // the OS desktop, not out to the redesigned site.
+              onClick={() => navigate("/os")}
               aria-label="Close window and return to desktop"
               title="Close — back to desktop"
             >

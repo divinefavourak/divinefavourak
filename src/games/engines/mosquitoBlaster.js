@@ -47,7 +47,13 @@ const pointer = (e) => {
 // ─── STATE ───────────────────────────────────────────────────────────────────
 let state = 'title'; // title | playing | paused | gameover
 let kills = 0, hp = 3, wave = 1, waveTimer = 30;
-let highscore = parseInt(localStorage.getItem('mbs_hs') || '0');
+// Radix 10 and a finite check: a junk value under this key would
+// otherwise render as "BEST: NaN KILLS" on the title screen and
+// never correct itself.
+let highscore = (() => {
+  const stored = parseInt(localStorage.getItem('mbs_hs') || '0', 10);
+  return Number.isFinite(stored) ? stored : 0;
+})();
 let shakeFrames = 0;
 let nepaSlow = false, nepaTimer = 0;
 let doubleShot = false, doubleTimer = 0;
@@ -181,8 +187,16 @@ function startGame() {
   state='playing';
 }
 
+// Whether the run that just ended actually beat the record. The
+// game-over screen cannot work this out for itself: gameOver()
+// raises `highscore` to `kills`, so a later `kills >= highscore`
+// test is true after every run that scored at all, and the banner
+// always claimed a new highscore.
+let beatHighscore = false;
+
 function gameOver() {
-  if(kills>highscore){highscore=kills;localStorage.setItem('mbs_hs',highscore);}
+  beatHighscore = kills > highscore;
+  if(beatHighscore){highscore=kills;localStorage.setItem('mbs_hs',highscore);}
   state='gameover';
 }
 
@@ -519,7 +533,7 @@ function drawHUD() {
     ctx.font='bold 13px "Courier New"';
     ctx.fillStyle='#00eeff';
     ctx.textAlign='left';
-    ctx.fillText(`💡 NEPA SLOW: ${Math.ceil(nepaTimer/60)}s`,20,580);
+    ctx.fillText(`💡 NEPA SLOW: ${Math.ceil(nepaTimer/1000)}s`,20,580);
     noGlow();
   }
   if(doubleShot){
@@ -527,7 +541,7 @@ function drawHUD() {
     ctx.font='bold 13px "Courier New"';
     ctx.fillStyle='#cc44ff';
     ctx.textAlign='left';
-    ctx.fillText(`⚡ 2X SHOT: ${Math.ceil(doubleTimer/60)}s`,20,nepaSlow?560:580);
+    ctx.fillText(`⚡ 2X SHOT: ${Math.ceil(doubleTimer/1000)}s`,20,nepaSlow?560:580);
     noGlow();
   }
   // NEPA FLICKER text if active
@@ -634,7 +648,7 @@ function drawGameOver(){
   glow('#00ff88',10);
   ctx.fillText(`KILLS: ${kills}`,400,310);
   noGlow();
-  if(kills>=highscore && kills>0){
+  if(beatHighscore && kills>0){
     glow('#ffdd00',15);
     ctx.font='bold 20px "Courier New"';
     ctx.fillStyle='#ffdd00';

@@ -31,9 +31,17 @@ export default defineConfig([
       // That was drowning real findings in false positives.
       'react/jsx-uses-vars': 'error',
       'react/jsx-uses-react': 'error',
+      // No varsIgnorePattern. It existed to stop capitalised
+      // components being flagged, which jsx-uses-vars now handles
+      // properly — and while it was there it also silenced genuinely
+      // unused imports and dead constants.
+      //
+      // ignoreRestSiblings allows the omit-a-key idiom
+      // (`const { [k]: _drop, ...rest } = obj`), where the binding is
+      // deliberately unused because extracting it is the point.
       'no-unused-vars': [
         'error',
-        { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^_' },
+        { argsIgnorePattern: '^_', ignoreRestSiblings: true },
       ],
     },
   },
@@ -55,8 +63,11 @@ export default defineConfig([
       globals: { ...globals.node },
     },
     rules: {
-      // Express error middleware must declare four parameters to be
-      // recognised as error middleware, even when `next` is unused.
+      // ESLint replaces a rule's options wholesale rather than
+      // merging them, so this restates everything the base block
+      // sets. Express error middleware must declare four parameters
+      // to be recognised as error middleware, even when `next` goes
+      // unused.
       'no-unused-vars': ['error', { argsIgnorePattern: '^(_|next$)' }],
     },
   },

@@ -3,7 +3,7 @@ import Container from "../components/layout/Container.jsx";
 
 export default function NotFound() {
   return (
-    <Container as="main" className="grid min-h-[70vh] place-items-center py-40">
+    <Container className="grid min-h-[70vh] place-items-center py-40">
       <div className="text-center">
         <p className="label numeral">404</p>
         <h1 className="mt-4 text-[clamp(2.5rem,7vw,4.5rem)]">

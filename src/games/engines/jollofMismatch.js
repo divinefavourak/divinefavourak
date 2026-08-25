@@ -65,7 +65,25 @@ let feedbackTimer = 0;
 let steamOffset = 0;
 let titlePulse = 0;
 let targetPulse = 0;
-let highscores = JSON.parse(localStorage.getItem('jollofHighscores') || '[]');
+/**
+ * Persisted scores, validated on read.
+ *
+ * Anything on this origin can leave a value under this key, and a
+ * malformed one would throw inside the render loop — where there is
+ * no error boundary and the game simply stops. Bad data is discarded
+ * rather than trusted.
+ */
+let highscores = (() => {
+  try {
+    const parsed = JSON.parse(localStorage.getItem('jollofHighscores') || '[]');
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter(
+      (entry) => entry && typeof entry === 'object' && Number.isFinite(entry.score)
+    );
+  } catch {
+    return [];
+  }
+})();
 let shakeTimer = 0;
 let shakeX = 0;
 let comboParticles = [];
@@ -288,6 +306,12 @@ on(canvas, 'click', (e) => {
 // open. preventDefault stops Backspace and Space from scrolling or
 // navigating while the player is typing.
 on(canvas, 'keydown', (e) => {
+  // Let modifier combinations through. `e.key` stays a single
+  // character while Ctrl or Cmd is held, so the printable-character
+  // branch below would otherwise swallow Ctrl+C, Ctrl+V and Cmd+R
+  // and append them to the player's name.
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+
   if (state === STATE.GAMEOVER && inputActive) {
     if (e.key === 'Enter') {
       e.preventDefault();

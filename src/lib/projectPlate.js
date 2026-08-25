@@ -64,6 +64,14 @@ export function projectPlate(project, index = 0) {
   }
   if (line) lines.push(line);
 
+  // The wrapper only breaks between words, so a single word longer
+  // than the limit stays on one line and would run past the plate
+  // edge at 72px. Scale the type down to fit the longest line
+  // instead of letting it clip.
+  const longest = lines.reduce((n, l) => Math.max(n, l.length), 0);
+  const titleSize = longest > 14 ? Math.max(36, Math.floor((14 / longest) * 72)) : 72;
+  const lineStep = Math.round(titleSize * 1.14);
+
   const titleSpans = lines
     .slice(0, 4)
     .map(
@@ -72,7 +80,7 @@ export function projectPlate(project, index = 0) {
         // this must be a system stack — it can't be Bricolage. A
         // heavy, tightly-tracked grotesque is the closest match the
         // system reliably provides.
-        `<text x="64" y="${640 + i * 82}" font-family="'Segoe UI', system-ui, sans-serif" font-weight="650" letter-spacing="-2" font-size="72" fill="${PALETTE.ink}">${escapeXml(text)}</text>`
+        `<text x="64" y="${640 + i * lineStep}" font-family="'Segoe UI', system-ui, sans-serif" font-weight="650" letter-spacing="-2" font-size="${titleSize}" fill="${PALETTE.ink}">${escapeXml(text)}</text>`
     )
     .join('');
 

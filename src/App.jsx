@@ -71,7 +71,15 @@ export default function App() {
   // The OS shell renders its own full-screen chrome — taskbar,
   // status bar, splash — so it deliberately bypasses SiteLayout
   // rather than nesting inside it.
-  if (location.pathname.startsWith("/os")) {
+  //
+  // Matched on the segment boundary, not the prefix: startsWith("/os")
+  // is also true for "/oscar", which would take this branch and then
+  // match no inner route, rendering a blank page with no nav, footer
+  // or 404.
+  const isOsRoute =
+    location.pathname === "/os" || location.pathname.startsWith("/os/");
+
+  if (isOsRoute) {
     return (
       <Suspense fallback={<div className="min-h-screen bg-paper" />}>
         <Routes>

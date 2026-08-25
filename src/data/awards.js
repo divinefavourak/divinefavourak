@@ -1,12 +1,9 @@
 /**
  * Recognition — scholarships and competitions.
  *
- * `year` and `result` are TODO where the user hasn't supplied them;
- * the UI renders an em-dash placeholder rather than inventing a
- * placement.
+ * The UI renders an em-dash placeholder for any field left null,
+ * rather than inventing a year or a placement.
  */
-
-export const TODO_DETAIL = null;
 
 export const awards = [
   {

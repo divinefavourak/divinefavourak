@@ -11,10 +11,14 @@ export default function MetaGrid({ items, className = "" }) {
   // lists from fixed fields plus a project's freeform `metrics`,
   // and a project that also lists "Role" as a metric would
   // otherwise render the column twice.
+  // Both guards matter: callers merge fixed fields with a project's
+  // freeform `metrics`, so neither the array nor a label is
+  // guaranteed. An entry with a value and no label used to throw and
+  // take the whole case study down with it.
   const seen = new Set();
-  const rows = items.filter((item) => {
-    if (!item?.value) return false;
-    const key = item.label.toLowerCase();
+  const rows = (Array.isArray(items) ? items : []).filter((item) => {
+    if (!item?.value || !item?.label) return false;
+    const key = String(item.label).toLowerCase();
     if (seen.has(key)) return false;
     seen.add(key);
     return true;

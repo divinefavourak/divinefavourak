@@ -10,7 +10,7 @@ import roles from "../data/experience.js";
 
 export default function About() {
   return (
-    <Container as="main" className="pt-36 pb-(--spacing-section) sm:pt-44">
+    <Container className="pt-36 pb-(--spacing-section) sm:pt-44">
       <Reveal>
         <p className="label">About</p>
         <h1 className="mt-4 text-[clamp(2.5rem,7vw,4.5rem)]">
