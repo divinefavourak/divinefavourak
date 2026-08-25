@@ -9,7 +9,7 @@
 export const profile = {
   name: "Divine-favour Akanbi",
   fullName: "Akanbi Divine-favour Solomon",
-  title: "Full-Stack & UX Developer",
+  title: "AI Full-Stack & UX Developer",
   location: "Lagos, Nigeria",
   timezone: "WAT",
 
@@ -24,7 +24,7 @@ export const profile = {
 
   /** Two or three sentences, used on the home page and /about. */
   intro: [
-    "I'm a Computer Science student at the University of Lagos who builds across the whole stack — web platforms, mobile apps, and the bots and services that sit behind them.",
+    "I'm a Computer Science student at the University of Lagos who builds across the whole stack — web platforms, mobile apps, and the AI-powered bots and services that sit behind them.",
     "I care about the seam where engineering meets interface: the part where a system stops being an architecture diagram and starts being something a person can actually use.",
   ],
 

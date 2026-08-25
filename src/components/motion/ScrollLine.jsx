@@ -22,9 +22,13 @@ export default function ScrollLine() {
   if (reduced) return null;
 
   return (
+    // 2px and an amber-to-ink gradient rather than a 1px hairline.
+    // At 1px on a dark ground this was effectively invisible on a
+    // phone, so the one piece of scroll feedback the layout had
+    // never registered.
     <motion.div
       aria-hidden="true"
-      className="fixed inset-x-0 top-0 z-50 h-px origin-left bg-ink"
+      className="fixed inset-x-0 top-0 z-50 h-0.5 origin-left bg-gradient-to-r from-accent to-ink"
       style={{ scaleX }}
     />
   );

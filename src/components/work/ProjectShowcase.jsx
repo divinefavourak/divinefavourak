@@ -6,6 +6,7 @@ import Reveal from '../motion/Reveal.jsx';
 import { hasLink } from '../../data/projects.js';
 import { projectImage } from '../../lib/projectPlate.js';
 import { EASE } from '../motion/motion.js';
+import useMediaQuery from '../../lib/useMediaQuery.js';
 
 /**
  * The work section: a depth carousel paired with a detail panel.
@@ -23,6 +24,37 @@ import { EASE } from '../motion/motion.js';
 export default function ProjectShowcase({ projects }) {
   const [index, setIndex] = useState(0);
   const reduced = useReducedMotion();
+  const isNarrow = useMediaQuery('(max-width: 640px)');
+
+  /**
+   * DepthCarousel scales itself down to fit, using
+   * `cardWidth + |spread| * 2 + 120` as the width it wants. With the
+   * desktop numbers that's 600px, so on a ~382px-wide phone column
+   * every card rendered at roughly 0.64 scale — about 190px, far too
+   * small to read.
+   *
+   * Narrowing the fan and deepening the card reclaims that: a wider
+   * card with less lateral spread wants ~530px, which scales to
+   * around 260px on the same screen. Fewer visible cards keeps the
+   * stack from crowding the frame at that size.
+   */
+  const carouselProps = isNarrow
+    ? {
+        cardWidth: 360,
+        cardHeight: 440,
+        depth: 150,
+        spread: 26,
+        tilt: 16,
+        visibleCards: 3,
+      }
+    : {
+        cardWidth: 300,
+        cardHeight: 380,
+        depth: 220,
+        spread: 90,
+        tilt: 22,
+        visibleCards: 4,
+      };
 
   const items = useMemo(
     () =>
@@ -95,19 +127,14 @@ export default function ProjectShowcase({ projects }) {
   return (
     <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
       <div className="lg:col-span-7">
-        <div className="h-[420px] sm:h-[480px]">
+        <div className="h-[460px] sm:h-[480px]">
           <DepthCarousel
             items={items}
-            cardWidth={300}
-            cardHeight={380}
+            {...carouselProps}
             radius={18}
             tint="#05060a"
-            depth={220}
-            spread={90}
-            tilt={22}
             tiltDirection="right"
             perspective={1400}
-            visibleCards={4}
             falloff={0.2}
             blur={6}
             // Autoplay is off deliberately: each advance mounts a new
@@ -118,9 +145,6 @@ export default function ProjectShowcase({ projects }) {
             renderOverlay={renderOverlay}
           />
         </div>
-        <p className="label mt-4 text-center">
-          Drag, scroll or use the arrow keys
-        </p>
       </div>
 
       <Reveal className="lg:col-span-5">

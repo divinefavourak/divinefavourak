@@ -12,18 +12,29 @@ export const EASE = [0.16, 1, 0.3, 1];
 
 export const DURATION = 0.6;
 
-/** How far elements travel on reveal. Small on purpose. */
-export const DISTANCE = 24;
+/**
+ * How far elements travel on reveal.
+ *
+ * Raised from 24px: on a phone the viewport is short and content is
+ * single-column, so a 24px rise was over almost before it read as
+ * movement. 40px is still restrained on a desktop screen but is
+ * actually perceptible on a handset.
+ */
+export const DISTANCE = 40;
 
 /** Gap between siblings in a staggered group. */
 export const STAGGER = 0.06;
 
 /**
- * When to trigger a scroll reveal. The negative bottom margin means
- * an element animates slightly before it reaches the viewport edge,
- * so it is already settled by the time it's comfortably in view.
+ * When to trigger a scroll reveal.
+ *
+ * The negative bottom margin holds the trigger back until an element
+ * is properly into the viewport. At -12% things were firing almost
+ * as they appeared, which on a short screen meant the animation had
+ * finished before it was worth looking at. -20% lets the reader
+ * arrive and then see it move.
  */
-export const VIEWPORT = { once: true, margin: "0px 0px -12% 0px" };
+export const VIEWPORT = { once: true, margin: "0px 0px -20% 0px" };
 
 export const transition = { duration: DURATION, ease: EASE };
 

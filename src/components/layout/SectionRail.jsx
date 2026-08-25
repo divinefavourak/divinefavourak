@@ -49,9 +49,12 @@ export default function SectionRail({ sections }) {
   }, [sections]);
 
   return (
+    // Shown from md rather than xl. It was the clearest indication
+    // of position in the document and phones never saw it; the
+    // labels still wait until xl, where there's room for them.
     <nav
       aria-label="Sections"
-      className="fixed right-5 top-1/2 z-30 hidden -translate-y-1/2 xl:block"
+      className="fixed right-3 top-1/2 z-30 hidden -translate-y-1/2 md:block xl:right-5"
     >
       <ul className="flex flex-col items-end gap-3">
         {sections.map((section) => {
@@ -65,7 +68,7 @@ export default function SectionRail({ sections }) {
               >
                 <span
                   className={
-                    "label transition-all duration-300 " +
+                    "label hidden transition-all duration-300 xl:inline " +
                     (isActive
                       ? "opacity-100"
                       : "opacity-0 group-hover:opacity-70")

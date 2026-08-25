@@ -27,6 +27,7 @@ import awards from "../data/awards.js";
 import stackGroups from "../data/stack.js";
 import timeline from "../data/timeline.js";
 import { EASE } from "../components/motion/motion.js";
+import useMediaQuery from "../lib/useMediaQuery.js";
 
 /** Drives the right-edge rail. Order must match the sections below. */
 const SECTIONS = [
@@ -170,6 +171,11 @@ export default function Home() {
 function Hero() {
   const reduced = useReducedMotion();
 
+  // Gates the WebGL halftone and the cursor tilt. Both are
+  // pointer-driven, so below md they are skipped entirely rather
+  // than mounted and left idle.
+  const showEffects = useMediaQuery("(min-width: 768px)");
+
   // The name stacks and the surname sits a tone back. Splitting it
   // lets the display face be genuinely large without the line
   // running the full width of the page.
@@ -196,22 +202,37 @@ function Hero() {
       data-halftone-surface
       className="relative overflow-hidden pb-16 pt-32 sm:pt-40"
     >
-      {/* Portrait, bleeding off the right edge. Absolutely positioned
-          rather than sharing a column split, so the text keeps its
-          full measure and the image can run to the page edge.
-          Hidden below lg, where there isn't room for it to read as
-          atmosphere instead of clutter. */}
+      {/* Portrait, absolutely positioned rather than sharing a column
+          split, so the text keeps its full measure and the image can
+          run to the page edge.
+
+          On phones it goes full-bleed behind the copy instead of
+          being hidden — at that width there is no room for it beside
+          the text, but plenty behind it. Opacity steps up with the
+          breakpoint because the narrower the screen, the more of the
+          image sits directly under words. */}
       <div
         aria-hidden="true"
         // perspective has to live on the ancestor, not on the tilted
         // element itself, or the rotation renders flat.
-        className="pointer-events-none absolute inset-y-0 right-0 hidden w-[78%] select-none opacity-70 [perspective:1200px] md:block lg:w-[62%] lg:opacity-100"
+        className="pointer-events-none absolute inset-y-0 right-0 w-full select-none opacity-90 [perspective:1200px] md:w-[78%] md:opacity-90 lg:w-[62%] lg:opacity-100"
       >
-        {/* Both hero effects live on this one image: TiltWrap tilts
-            it toward the cursor, HalftoneReveal screens it as a
-            halftone print and opens a sharp loupe under the pointer.
-            Tracking is read from the header, because the portrait is
-            pointer-events:none and can never be hovered directly. */}
+        {/* Phones get the photograph plainly.
+            Both hero effects are pointer-driven — the tilt follows
+            the cursor and the halftone opens a loupe under it — and
+            neither exists on touch. Running a full-screen fragment
+            shader every frame for an interaction that can never fire
+            is pure battery cost, so the canvas is not mounted at all
+            below md. The mask and grade are kept so the treatment
+            still matches. */}
+        {!showEffects ? (
+          <img
+            src={profile.portraitUrl}
+            alt=""
+            fetchPriority="high"
+            className="halftone-mask h-full w-full object-cover object-[center_38%] grayscale contrast-125"
+          />
+        ) : (
         <TiltWrap
           amplitude={11}
           scaleOnHover={1.05}
@@ -257,11 +278,18 @@ function Hero() {
           fallbackAlt=""
         />
         </TiltWrap>
+        )}
 
         {/* Scrim. Outside the tilt so it stays flush with the page
-            edge — tilting the scrim too would peel it away from the
-            text it exists to protect. */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-paper via-paper/55 to-transparent lg:via-paper/25 lg:to-transparent" />
+            edge — tilting it too would peel it away from the text it
+            exists to protect.
+
+            The direction flips with the layout. On phones the image
+            is behind the copy, so the fade runs bottom-to-top and
+            keeps a floor of paper across the whole frame. From md the
+            image sits beside the text, so it fades left-to-right
+            instead and leaves the right edge clear. */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-paper via-paper/62 to-paper/10 md:via-paper/55 md:to-transparent lg:via-paper/25" />
       </div>
 
       {/* The portrait is decorative (alt=""), so the identity it
