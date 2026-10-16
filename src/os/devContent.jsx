@@ -20,6 +20,9 @@ const projectData = projects.map((p) => ({
   desc: p.summary,
   tech: p.stack,
   link: p.links.live,
+  // Honours the same `preview: "plate"` opt-out as the redesigned
+  // site, so hosts that refuse framing aren't iframed here either.
+  framable: p.preview !== 'plate',
   github: p.links.repo,
   status: p.status,
 }));
@@ -152,7 +155,7 @@ export function DevProjects() {
                   ))}
                 </div>
 
-                {proj.link && proj.link !== '#' ? (
+                {proj.framable && proj.link && proj.link !== '#' ? (
                   <div className="nb-project-preview">
                     <div className="nb-browser-bar">
                       <span className="nb-browser-dot" />

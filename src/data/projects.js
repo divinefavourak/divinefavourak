@@ -95,16 +95,16 @@ export const projects = [
 
   {
     slug: "rccg-r63-teens",
-    title: "RCCG R63 Teens",
+    title: "Faith Tribe — RCCG Region 63 Teens",
     year: "2025",
     category: "Full-Stack",
     status: "production",
     summary:
-      "Event management system with registration, ticketing, payments, QR check-in and approval workflows.",
+      "Devotionals, bible studies and event management system with registration, ticketing, payments, QR check-in and approval workflows.",
     role: "Full-Stack Developer",
     stack: ["Django", "React", "PostgreSQL", "Paystack"],
     metrics: [
-      { label: "Payments", value: "Paystack" },
+      { label: "Payments", value: "Paystack/Squad" },
       { label: "Check-in", value: "QR-based" },
     ],
     image: null,
