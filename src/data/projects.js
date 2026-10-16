@@ -96,16 +96,17 @@ export const projects = [
   {
     slug: "rccg-r63-teens",
     title: "Faith Tribe — RCCG Region 63 Teens",
-    year: "2025",
+    year: "2025 — present",
     category: "Full-Stack",
     status: "production",
     summary:
-      "Devotionals, bible studies and event management system with registration, ticketing, payments, QR check-in and approval workflows.",
-    role: "Full-Stack Developer",
-    stack: ["Django", "React", "PostgreSQL", "Paystack"],
+      "Started as the registration site for a regional teens' camp; rebuilt into a discipleship platform with a daily devotional, a Bible and event tools for leaders.",
+    role: "Project Lead · Full-Stack",
+    stack: ["Django", "PostgreSQL", "Redis", "React", "TypeScript", "Expo", "Squad"],
     metrics: [
-      { label: "Payments", value: "Paystack/Squad" },
-      { label: "Check-in", value: "QR-based" },
+      { label: "Largest event", value: "443 registrations" },
+      { label: "Clients", value: "Website · Console · Android + web app" },
+      { label: "Payments", value: "Bank transfer, now Squad" },
     ],
     image: null,
 
@@ -114,7 +115,66 @@ export const projects = [
       repo: "https://github.com/divinefavourak/rccg-r63-teens" ,
     },
     featured: true,
-    caseStudy: null,
+    caseStudy: {
+      context:
+        "Faith Tribe is the teens' church of RCCG Region 63, spread across provinces, zones and parishes in Lagos. The project began in November 2025 as the site for the region's December camp, The Priceless Gift: a countdown, an Advent calendar, and registration. I built that first version with two other developers in under four weeks, before the camp opened on 22 December.",
+      problem:
+        "The camp site did its job, but it was an event system with church features bolted on afterwards. Provinces were a hard-coded list of Lagos provinces, permissions were a flat admin check, and one permission trusted a province sent by the client, an open path to another province's data. There was no Bible and no reason for a teen to open it between events. Fixing that meant rebuilding the core while production was live, with 34 users and an event of 443 registrations that couldn't be lost.",
+      approach: [
+        "For the camp, built coordinator registration: each province's coordinator registered their teens in bulk, paid by bank transfer and uploaded proof, an admin verified it, and every teen was emailed a QR ticket.",
+        "Audited the backend against the product documents in July 2026, then rebuilt access around the church as a tree: Parish, Area, Zone, Province, Region, National. A role is held at one place in the tree and reaches only what sits beneath it, which closed the cross-province hole. The upgrade was rehearsed against a copy of production before it ran on the live database.",
+        "Built the daily product: the devotional imported each day from RCCG's site, its memory verse as the Verse of the Day and its Action Point as the day's challenge; a Bible with search that can be kept whole on the phone; streaks with grace days; and a reminder ladder that stops once the devotional is read.",
+        "Built the app in Expo from the Figma designs, for Android and as a web app iPhone users install from Safari. Teachers get their class list and a QR scanner for the door that saves scans on the phone when the signal drops.",
+        "Reworked events for self-service: Squad checkout, a short pay link a teen can send a parent, a place confirmed by payment and released if it isn't paid by the deadline, automatic bedspace allocation, and a leaders' Console with CSV and PDF exports.",
+      ],
+      architecture:
+        "One Django REST API, on PostgreSQL and Redis, serves the React and TypeScript website with its Console and the Expo app, which builds both the Android app and the iPhone web app. Event capacity, bedspaces and payments lock the rows they change, so two people can't take the last place at once, and a payment can complete a registration only once. Squad webhooks are verified with HMAC-SHA512. There is no paid background worker: an outside timer calls a secured endpoint every five minutes and the API runs whatever is due, safe to repeat. The API is on Render, the web front ends on Vercel, and Android builds come from Expo EAS and are served from R2.",
+      outcome:
+        "Camp registration ran through the first version. The rebuilt platform is live at thefaithtribe.live, with the app released in October 2026 as an Android download and an iPhone web app. The backend has close to 500 tests. A written performance and concurrency audit records what has been fixed and what is still open, and the door scanner and live Squad payments are still being proven on real devices.",
+      screens: [],
+    },
+  },
+
+   {
+    slug: "siwes-companion",
+    title: "SIWES Companion",
+    year: "2026",
+    category: "Full-Stack",
+    status: "production",
+    summary:
+      "A web app and Telegram bot that turn daily SIWES notes into grounded logbook entries students can defend.",
+    role: "Solo Developer",
+    stack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "grammY", "Groq", "Docker"],
+    metrics: [
+      { label: "Platform", value: "Web + Telegram" },
+      { label: "AI", value: "Llama 3.3 70B via Groq" },
+      { label: "Hosting", value: "Self-hosted 2 GB VPS" },
+    ],
+    image: null,
+
+    links: {
+      live: "https://swcompanion.akanbi.dev/",
+      repo: "https://github.com/divinefavourak/siwes-companion",
+    },
+    featured: true,
+    caseStudy: {
+      context:
+        "SIWES is the industrial training placement Nigerian STEM students complete before graduating. Each one has to keep a daily logbook, write a report from it, and then defend the work in front of supervisors.",
+      problem:
+        "Students put the logbook off, lose track of what they did between workdays, and end up writing entries weeks later from memory. Generic AI tools make this worse: they will happily produce polished entries describing work that never happened, which collapses the moment an examiner asks a follow-up question. The goal was a record that is easy to keep and honest enough to defend.",
+      approach: [
+        "Made capture fit into a workday: students message a Telegram bot in plain language, with no commands to remember, or use the web studio. The bot updates a single live message per flow, so the chat doesn't fill up with replies.",
+        "Kept the AI to rewriting, never inventing. Llama 3.3 70B on Groq turns a rough note into a formal past-tense entry at temperature 0.1, and a separate check flags any tool, project or achievement the student never mentioned. It also catches an observation being upgraded into a responsibility, like 'watched' becoming 'configured'.",
+        "Stored the raw note, the AI draft and the student's edit as separate records, so the original is never overwritten and the student owns every saved word.",
+        "Built habit features around missed days: logging streaks, an activity heatmap, a weekly catch-up reminder that lists unlogged working days, and a history view for back-filling past weeks.",
+        "Added logbook PDF export, plus kanban boards for tracking personal projects and lab work alongside the placement.",
+      ],
+      architecture:
+        "A Next.js 15 App Router app in TypeScript, with a shared domain core so the web studio and the grammY Telegram adapter call the same services. PostgreSQL through Prisma, Auth.js credentials with scrypt-hashed passwords, and an AI provider layer that uses Groq first, falls back to Anthropic, and drops to a deterministic fake provider in tests. The Telegram webhook checks a secret token with a constant-time compare and ignores duplicate updates. It runs in Docker on a 2 GB VPS behind a Cloudflare Tunnel, with images built in GitHub Actions because building on the box ran it out of memory.",
+      outcome:
+        "Live at swcompanion.akanbi.dev with daily capture on web and Telegram, review and editing, history, streaks, catch-up reminders and PDF export. An evidence vault, a report compiler and an oral-defence simulator that asks questions drawn from the student's own entries are next; their data models are already in place.",
+      screens: [],
+    },
   },
   
   {
